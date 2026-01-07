@@ -1,5 +1,7 @@
 # Around PT Web Project
 
+![Project Screenshot](./images/Screenshot.png)
+
 ## Project Overview 📊
 
 The **Around PT Web Project** is a responsive static website built with HTML and CSS. The site presents content related to travel, places, or services within the “Around PT” concept. This project was created to strengthen core front-end skills such as layout structure, responsive design, and visual presentation without using JavaScript frameworks.
