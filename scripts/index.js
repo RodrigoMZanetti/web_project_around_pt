@@ -87,3 +87,34 @@ closeButton.addEventListener("click", function () {
 function closeModal(modal) {
   modal.classList.remove("popup_is-opened");
 }
+
+// SPRINT 8 COMEÇA AQUI
+
+const modelTemplate = document.getElementById("template_model").content;
+
+function getCardElement(
+  name = "Lugar sem nome",
+  link = "./images/placeholder.jpg"
+) {
+  let cardElement = modelTemplate.querySelector(".card").cloneNode(true);
+  let cardName = cardElement.querySelector(".card__title");
+  let cardImage = cardElement.querySelector(".card__image");
+
+  cardImage.src = link;
+  cardImage.alt = name;
+  cardName.textContent = name;
+
+  return cardElement;
+}
+
+function renderCard(name, link, container) {
+  let newCard = getCardElement(name, link);
+  return container.prepend(newCard);
+}
+
+initialCards.forEach(function (item) {
+  let nameCardItem = item.name;
+  let nameCardImage = item.link;
+  let containerItem = document.querySelector(".cards__list");
+  renderCard(nameCardItem, nameCardImage, containerItem);
+});
