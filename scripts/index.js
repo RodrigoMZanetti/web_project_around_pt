@@ -50,7 +50,7 @@ function fillProfileForm(modalGeral) {
   const experienceElement = document.querySelector(".profile__description");
   const experienceText = experienceElement.textContent;
   const experienceInput = modalGeral.querySelector(
-    ".popup__input_type_description"
+    ".popup__input_type_description",
   );
   experienceInput.value = experienceText;
 }
@@ -94,7 +94,7 @@ const modelTemplate = document.getElementById("template_model").content;
 
 function getCardElement(
   name = "Lugar sem nome",
-  link = "./images/placeholder.jpg"
+  link = "./images/placeholder.jpg",
 ) {
   let cardElement = modelTemplate.querySelector(".card").cloneNode(true);
   let cardName = cardElement.querySelector(".card__title");
@@ -103,6 +103,18 @@ function getCardElement(
   cardImage.src = link;
   cardImage.alt = name;
   cardName.textContent = name;
+
+  const likeButtonItem = cardElement.querySelector(".card__like-button");
+  likeButtonItem.addEventListener("click", function () {
+    likeButtonItem.classList.toggle("card__like-button_is-active");
+  });
+
+  const deleteButtonItem = cardElement.querySelector(".card__delete-button");
+  deleteButtonItem.addEventListener("click", function () {
+    cardElement.remove();
+  });
+
+  cardImage.addEventListener("click", function () {});
 
   return cardElement;
 }
