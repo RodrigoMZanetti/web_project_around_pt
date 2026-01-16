@@ -118,3 +118,37 @@ initialCards.forEach(function (item) {
   let containerItem = document.querySelector(".cards__list");
   renderCard(nameCardItem, nameCardImage, containerItem);
 });
+
+//TASK 2
+
+const modalNewCard = document.querySelector("#new-card-popup");
+const buttonNewCard = document.querySelector(".profile__add-button");
+
+buttonNewCard.addEventListener("click", function () {
+  openModal(modalNewCard);
+});
+
+closeButton.addEventListener("click", function () {
+  closeModal(modalNewCard);
+});
+
+let formNewCard = document.querySelector("#new-card-form");
+formNewCard.addEventListener("submit", function (evt) {
+  handleCardFormSubmit(evt);
+});
+
+function handleCardFormSubmit(evt) {
+  evt.preventDefault();
+
+  let nameInput = modalNewCard.querySelector(".popup__input_type_card-name");
+  const nameInputValue = nameInput.value;
+
+  let imageInput = modalNewCard.querySelector(".popup__input_type_url");
+  const imageInputValue = imageInput.value;
+
+  const newCardComplete = document.querySelector(".cards__list");
+
+  renderCard(nameInputValue, imageInputValue, newCardComplete);
+
+  closeModal(modalNewCard);
+}
