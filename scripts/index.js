@@ -92,6 +92,16 @@ function closeModal(modal) {
 
 const modelTemplate = document.getElementById("template_model").content;
 
+//task 5
+const modalImage = document.getElementById("image-popup");
+const popupImage = modalImage.querySelector(".popup__image");
+const imageLegend = modalImage.querySelector(".popup__caption");
+const imageClose = modalImage.querySelector(".popup__close");
+
+imageClose.addEventListener("click", function () {
+  closeModal(modalImage);
+});
+
 function getCardElement(
   name = "Lugar sem nome",
   link = "./images/placeholder.jpg",
@@ -114,7 +124,14 @@ function getCardElement(
     cardElement.remove();
   });
 
-  cardImage.addEventListener("click", function () {});
+  //task 5
+
+  cardImage.addEventListener("click", function () {
+    openModal(modalImage);
+    popupImage.src = link;
+    popupImage.alt = name;
+    imageLegend.textContent = name;
+  });
 
   return cardElement;
 }
@@ -130,8 +147,6 @@ initialCards.forEach(function (item) {
   let containerItem = document.querySelector(".cards__list");
   renderCard(nameCardItem, nameCardImage, containerItem);
 });
-
-//TASK 2
 
 const modalNewCard = document.querySelector("#new-card-popup");
 const buttonNewCard = document.querySelector(".profile__add-button");
