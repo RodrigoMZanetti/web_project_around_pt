@@ -25,10 +25,6 @@ const initialCards = [
   },
 ];
 
-initialCards.forEach(function (item) {
-  console.log(item.name);
-});
-
 const modalGeral = document.querySelector("#edit-popup");
 
 const editButton = document.querySelector(".profile__edit-button");
@@ -88,11 +84,8 @@ function closeModal(modal) {
   modal.classList.remove("popup_is-opened");
 }
 
-// SPRINT 8 COMEÇA AQUI
-
 const modelTemplate = document.getElementById("template_model").content;
 
-//task 5
 const modalImage = document.getElementById("image-popup");
 const popupImage = modalImage.querySelector(".popup__image");
 const imageLegend = modalImage.querySelector(".popup__caption");
@@ -106,9 +99,9 @@ function getCardElement(
   name = "Lugar sem nome",
   link = "./images/placeholder.jpg",
 ) {
-  let cardElement = modelTemplate.querySelector(".card").cloneNode(true);
-  let cardName = cardElement.querySelector(".card__title");
-  let cardImage = cardElement.querySelector(".card__image");
+  const cardElement = modelTemplate.querySelector(".card").cloneNode(true);
+  const cardName = cardElement.querySelector(".card__title");
+  const cardImage = cardElement.querySelector(".card__image");
 
   cardImage.src = link;
   cardImage.alt = name;
@@ -123,8 +116,6 @@ function getCardElement(
   deleteButtonItem.addEventListener("click", function () {
     cardElement.remove();
   });
-
-  //task 5
 
   cardImage.addEventListener("click", function () {
     openModal(modalImage);
