@@ -30,7 +30,21 @@ formElement.addEventListener("submit", function (evt) {
   handleProfileFormSubmit(evt);
 });
 
+/////TASK 3 SPRINT 9 - FECHAR POPUP CLICANDO FORA
+function closePopUps(popUp) {
+  popUp.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) {
+      closeModal(popUp);
+    }
+  });
+  const closePopUpButton = popUp.querySelector(".popup__close");
+  closePopUpButton.addEventListener("click", () => {
+    closeModal(popUp);
+  });
+}
+
 const modalGeral = document.querySelector("#edit-popup");
+closePopUps(modalGeral);
 let formNewCard = document.querySelector("#new-card-form");
 const buttonPopUpLocal = formNewCard.querySelector(".popup__button");
 
@@ -42,7 +56,7 @@ editButton.addEventListener("click", function () {
 function handleOpenEditModal(modalGeral) {
   fillProfileForm(modalGeral);
   openModal(modalGeral);
-  validationButton(formElement, buttonSubmitForm);
+  resetForm(formElement, buttonSubmitForm);
 }
 
 function fillProfileForm(modalGeral) {
@@ -78,11 +92,6 @@ function handleProfileFormSubmit(evt) {
   closeModal(modalGeral);
 }
 
-const closeButton = modalGeral.querySelector(".popup__close");
-closeButton.addEventListener("click", function () {
-  closeModal(modalGeral);
-});
-
 function closeModal(modal) {
   modal.classList.remove("popup_is-opened");
 }
@@ -90,12 +99,10 @@ function closeModal(modal) {
 const modelTemplate = document.getElementById("template_model").content;
 
 const modalImage = document.getElementById("image-popup");
+
+closePopUps(modalImage);
 const popupImage = modalImage.querySelector(".popup__image");
 const imageLegend = modalImage.querySelector(".popup__caption");
-const imageClose = modalImage.querySelector(".popup__close");
-imageClose.addEventListener("click", function () {
-  closeModal(modalImage);
-});
 
 function getCardElement(
   name = "Lugar sem nome",
@@ -142,16 +149,12 @@ initialCards.forEach(function (item) {
 });
 
 const modalNewCard = document.querySelector("#new-card-popup");
+closePopUps(modalNewCard);
 const buttonOpenNewCard = document.querySelector(".profile__add-button");
-const buttonCloseNewCard = modalNewCard.querySelector(".popup__close");
 
 buttonOpenNewCard.addEventListener("click", function () {
+  resetForm(formNewCard, buttonPopUpLocal);
   openModal(modalNewCard);
-  validationButton(formNewCard, buttonPopUpLocal);
-});
-
-buttonCloseNewCard.addEventListener("click", function () {
-  closeModal(modalNewCard);
 });
 
 formNewCard.addEventListener("submit", function (evt) {
@@ -266,17 +269,6 @@ newLocalUrl.addEventListener("input", () => {
   validationButton(formNewCard, buttonPopUpLocal);
 });
 
-/////TASK 3 SPRINT 9 - FECHAR POPUP CLICANDO FORA
-const allPopUps = document.querySelectorAll(".popup");
-
-allPopUps.forEach((popUp) => {
-  popUp.addEventListener("click", (event) => {
-    if (event.target === event.currentTarget) {
-      closeModal(popUp);
-    }
-  });
-});
-
 /////TASK 4 SPRINT 9 - FECHAR POPUP CLICANDO ESC
 
 document.addEventListener("keydown", (event) => {
@@ -285,3 +277,13 @@ document.addEventListener("keydown", (event) => {
     closeModal(modalAberto);
   }
 });
+
+/////TASK 5 SPRINT 9 - RESETANDO
+
+function resetForm(form, button) {
+  const allSpans = form.querySelectorAll("span");
+  allSpans.forEach((span) => {
+    span.textContent = "";
+  });
+  button.disabled = true;
+}
