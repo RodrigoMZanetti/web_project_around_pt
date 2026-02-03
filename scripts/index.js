@@ -25,6 +25,11 @@ const initialCards = [
   },
 ];
 
+let formElement = document.querySelector("#edit-profile-form");
+formElement.addEventListener("submit", function (evt) {
+  handleProfileFormSubmit(evt);
+});
+
 const modalGeral = document.querySelector("#edit-popup");
 
 const editButton = document.querySelector(".profile__edit-button");
@@ -55,11 +60,6 @@ function fillProfileForm(modalGeral) {
 function openModal(modal) {
   modal.classList.add("popup_is-opened");
 }
-
-let formElement = document.querySelector("#edit-profile-form");
-formElement.addEventListener("submit", function (evt) {
-  handleProfileFormSubmit(evt);
-});
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -194,7 +194,7 @@ idName.addEventListener("input", () => {
     newElementMessage.textContent = "";
     newElementMessage.classList.remove("span-message");
   }
-  validationButton(profile);
+  validationButton(formElement);
 });
 
 ////// SPAN PARA O DESCRIPTION
@@ -211,7 +211,7 @@ idDescription.addEventListener("input", () => {
     newDescriptionMessage.textContent = "";
     newDescriptionMessage.classList.remove("span-message");
   }
-  validationButton(profile);
+  validationButton(formElement);
 });
 
 ////// VALIDAÇÃO DO BOTÃO
