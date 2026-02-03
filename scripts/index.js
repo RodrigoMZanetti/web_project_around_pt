@@ -40,7 +40,7 @@ editButton.addEventListener("click", function () {
 function handleOpenEditModal(modalGeral) {
   fillProfileForm(modalGeral);
   openModal(modalGeral);
-  validationButton(formElement);
+  validationButton(formElement, buttonSubmitForm);
 }
 
 function fillProfileForm(modalGeral) {
@@ -171,7 +171,7 @@ function handleCardFormSubmit(evt) {
   closeModal(modalNewCard);
 }
 
-///////////////////// sprint 9
+///////////////////// sprint 9 TASK 1
 
 ////// PEGANDO OS ELEMENTOS
 const idName = formElement.querySelector(".popup__input_type_name");
@@ -194,7 +194,7 @@ idName.addEventListener("input", () => {
     newElementMessage.textContent = "";
     newElementMessage.classList.remove("span-message");
   }
-  validationButton(formElement);
+  validationButton(formElement, buttonSubmitForm);
 });
 
 ////// SPAN PARA O DESCRIPTION
@@ -211,16 +211,55 @@ idDescription.addEventListener("input", () => {
     newDescriptionMessage.textContent = "";
     newDescriptionMessage.classList.remove("span-message");
   }
-  validationButton(formElement);
+  validationButton(formElement, buttonSubmitForm);
 });
 
 ////// VALIDAÇÃO DO BOTÃO
 
-function validationButton(form) {
+function validationButton(form, button) {
   const verificationForm = form.checkValidity();
   if (verificationForm) {
-    buttonSubmitForm.disabled = false;
+    button.disabled = false;
   } else {
-    buttonSubmitForm.disabled = true;
+    button.disabled = true;
   }
 }
+
+/////TASK 2 - SPRINT 9
+const newLocalPopUp = document.querySelector("#new-card-form");
+const newCardName = newLocalPopUp.querySelector(".popup__input_type_card-name");
+const newLocalUrl = newLocalPopUp.querySelector(".popup__input_type_url");
+const buttonPopUpLocal = newLocalPopUp.querySelector(".popup__button");
+
+/////VALIDAÇÃO DO NOME DO LOCAL
+let newCardNameMessage = document.createElement("span");
+newCardName.after(newCardNameMessage);
+
+newCardName.addEventListener("input", () => {
+  const cardNameValidation = newCardName.checkValidity();
+  if (!cardNameValidation) {
+    newCardNameMessage.textContent = newCardName.validationMessage;
+    newCardNameMessage.classList.add("span-message");
+  } else {
+    newCardNameMessage.textContent = "";
+    newCardNameMessage.classList.remove("span-message");
+  }
+  validationButton(newLocalPopUp, buttonPopUpLocal);
+});
+
+/////VALIDAÇÃO DA NOVA URL DO LOCAL
+let newUrlMessage = document.createElement("span");
+newLocalUrl.after(newUrlMessage);
+
+newLocalUrl.addEventListener("input", () => {
+  const validationUrl = newLocalUrl.checkValidity();
+
+  if (!validationUrl) {
+    newUrlMessage.textContent = newLocalUrl.validationMessage;
+    newUrlMessage.classList.add("span-message");
+  } else {
+    newUrlMessage.textContent = "";
+    newUrlMessage.classList.remove("span-message");
+  }
+  validationButton(newLocalPopUp, buttonPopUpLocal);
+});

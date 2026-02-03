@@ -97,7 +97,7 @@
           </form>
         </div>
       </div>
-      <!--TEMPLATES-->
+      <!--TEMPLATE NOVO LOCAL-->
       <div class="popup" id="new-card-popup">
         <div class="popup__content">
           <button
@@ -111,17 +111,21 @@
               class="popup__input popup__input_type_card-name"
               name="place-name"
               placeholder="Título"
-              required
+              minlength="2"
+              maxlength="30"
               type="text"
+              required
             />
             <input
               class="popup__input popup__input_type_url"
               name="link"
               placeholder="Link de Imagem"
-              required
               type="url"
+              required
             />
-            <button class="button popup__button" type="submit">Criar</button>
+            <button class="button popup__button" type="submit" disabled>
+              Criar
+            </button>
           </form>
         </div>
       </div>
