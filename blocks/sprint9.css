@@ -1,0 +1,10 @@
+button:disabled {
+  background-color: rgba(255, 255, 255, 0.627);
+  color: gray;
+  border: 1px solid gray;
+  cursor: not-allowed;
+}
+
+.span-message {
+  color: red;
+}

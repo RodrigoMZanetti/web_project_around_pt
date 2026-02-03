@@ -35,6 +35,7 @@ editButton.addEventListener("click", function () {
 function handleOpenEditModal(modalGeral) {
   fillProfileForm(modalGeral);
   openModal(modalGeral);
+  validationButton(formElement);
 }
 
 function fillProfileForm(modalGeral) {
@@ -90,7 +91,6 @@ const modalImage = document.getElementById("image-popup");
 const popupImage = modalImage.querySelector(".popup__image");
 const imageLegend = modalImage.querySelector(".popup__caption");
 const imageClose = modalImage.querySelector(".popup__close");
-
 imageClose.addEventListener("click", function () {
   closeModal(modalImage);
 });
@@ -169,4 +169,58 @@ function handleCardFormSubmit(evt) {
   renderCard(nameInputValue, imageInputValue, newCardComplete);
 
   closeModal(modalNewCard);
+}
+
+///////////////////// sprint 9
+
+////// PEGANDO OS ELEMENTOS
+const idName = formElement.querySelector(".popup__input_type_name");
+const idDescription = formElement.querySelector(
+  ".popup__input_type_description",
+);
+const buttonSubmitForm = formElement.querySelector("#edit__button-submit");
+
+////// SPAN PARA O NAME
+let newElementMessage = document.createElement("span");
+idName.after(newElementMessage);
+
+idName.addEventListener("input", () => {
+  const checkName = idName.checkValidity();
+
+  if (!checkName) {
+    newElementMessage.textContent = idName.validationMessage;
+    newElementMessage.classList.add("span-message");
+  } else {
+    newElementMessage.textContent = "";
+    newElementMessage.classList.remove("span-message");
+  }
+  validationButton(profile);
+});
+
+////// SPAN PARA O DESCRIPTION
+let newDescriptionMessage = document.createElement("span");
+idDescription.after(newDescriptionMessage);
+
+idDescription.addEventListener("input", () => {
+  const checkDescription = idDescription.checkValidity();
+
+  if (!checkDescription) {
+    newDescriptionMessage.textContent = idDescription.validationMessage;
+    newDescriptionMessage.classList.add("span-message");
+  } else {
+    newDescriptionMessage.textContent = "";
+    newDescriptionMessage.classList.remove("span-message");
+  }
+  validationButton(profile);
+});
+
+////// VALIDAÇÃO DO BOTÃO
+
+function validationButton(form) {
+  const verificationForm = form.checkValidity();
+  if (verificationForm) {
+    buttonSubmitForm.disabled = false;
+  } else {
+    buttonSubmitForm.disabled = true;
+  }
 }

@@ -59,6 +59,7 @@
       <footer class="footer page__section">
         <p class="footer__copyright">&copy; 2025 Around The U.S.</p>
       </footer>
+      <!--TEMPLATES-->
       <div class="popup" id="edit-popup">
         <div class="popup__content">
           <button
@@ -73,18 +74,30 @@
               name="name"
               placeholder="Nome"
               type="text"
+              minlength="2"
+              maxlength="40"
+              required
             />
             <input
               class="popup__input popup__input_type_description"
               name="description"
               placeholder="Sobre mim"
               type="text"
+              minlength="2"
+              maxlength="200"
+              required
             />
-            <button class="button popup__button" type="submit">Salvar</button>
+            <button
+              class="button popup__button"
+              type="submit"
+              id="edit__button-submit"
+            >
+              Salvar
+            </button>
           </form>
         </div>
       </div>
-
+      <!--TEMPLATES-->
       <div class="popup" id="new-card-popup">
         <div class="popup__content">
           <button
@@ -112,6 +125,7 @@
           </form>
         </div>
       </div>
+      <!--TEMPLATES-->
       <div class="popup" id="image-popup">
         <div class="popup__content popup__content_content_image">
           <button
