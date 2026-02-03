@@ -31,6 +31,8 @@ formElement.addEventListener("submit", function (evt) {
 });
 
 const modalGeral = document.querySelector("#edit-popup");
+let formNewCard = document.querySelector("#new-card-form");
+const buttonPopUpLocal = formNewCard.querySelector(".popup__button");
 
 const editButton = document.querySelector(".profile__edit-button");
 editButton.addEventListener("click", function () {
@@ -140,17 +142,18 @@ initialCards.forEach(function (item) {
 });
 
 const modalNewCard = document.querySelector("#new-card-popup");
-const buttonNewCard = document.querySelector(".profile__add-button");
+const buttonOpenNewCard = document.querySelector(".profile__add-button");
+const buttonCloseNewCard = modalNewCard.querySelector(".popup__close");
 
-buttonNewCard.addEventListener("click", function () {
+buttonOpenNewCard.addEventListener("click", function () {
   openModal(modalNewCard);
+  validationButton(formNewCard, buttonPopUpLocal);
 });
 
-closeButton.addEventListener("click", function () {
+buttonCloseNewCard.addEventListener("click", function () {
   closeModal(modalNewCard);
 });
 
-let formNewCard = document.querySelector("#new-card-form");
 formNewCard.addEventListener("submit", function (evt) {
   handleCardFormSubmit(evt);
 });
@@ -226,10 +229,9 @@ function validationButton(form, button) {
 }
 
 /////TASK 2 - SPRINT 9
-const newLocalPopUp = document.querySelector("#new-card-form");
-const newCardName = newLocalPopUp.querySelector(".popup__input_type_card-name");
-const newLocalUrl = newLocalPopUp.querySelector(".popup__input_type_url");
-const buttonPopUpLocal = newLocalPopUp.querySelector(".popup__button");
+
+const newCardName = formNewCard.querySelector(".popup__input_type_card-name");
+const newLocalUrl = formNewCard.querySelector(".popup__input_type_url");
 
 /////VALIDAÇÃO DO NOME DO LOCAL
 let newCardNameMessage = document.createElement("span");
@@ -244,7 +246,7 @@ newCardName.addEventListener("input", () => {
     newCardNameMessage.textContent = "";
     newCardNameMessage.classList.remove("span-message");
   }
-  validationButton(newLocalPopUp, buttonPopUpLocal);
+  validationButton(formNewCard, buttonPopUpLocal);
 });
 
 /////VALIDAÇÃO DA NOVA URL DO LOCAL
@@ -261,5 +263,5 @@ newLocalUrl.addEventListener("input", () => {
     newUrlMessage.textContent = "";
     newUrlMessage.classList.remove("span-message");
   }
-  validationButton(newLocalPopUp, buttonPopUpLocal);
+  validationButton(formNewCard, buttonPopUpLocal);
 });
