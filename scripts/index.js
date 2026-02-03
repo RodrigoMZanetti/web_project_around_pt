@@ -276,3 +276,12 @@ allPopUps.forEach((popUp) => {
     }
   });
 });
+
+/////TASK 4 SPRINT 9 - FECHAR POPUP CLICANDO ESC
+
+document.addEventListener("keydown", (event) => {
+  const modalAberto = document.querySelector(".popup.popup_is-opened");
+  if (event.key === "Escape" && modalAberto) {
+    closeModal(modalAberto);
+  }
+});
