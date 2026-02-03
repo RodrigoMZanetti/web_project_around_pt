@@ -265,3 +265,14 @@ newLocalUrl.addEventListener("input", () => {
   }
   validationButton(formNewCard, buttonPopUpLocal);
 });
+
+/////TASK 3 SPRINT 9 - FECHAR POPUP CLICANDO FORA
+const allPopUps = document.querySelectorAll(".popup");
+
+allPopUps.forEach((popUp) => {
+  popUp.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) {
+      closeModal(popUp);
+    }
+  });
+});
