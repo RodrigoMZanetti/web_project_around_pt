@@ -157,3 +157,13 @@
     padding: 0;
   }
 }
+
+.popup__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.popup__button:disabled:hover {
+  background: #000;
+  cursor: not-allowed;
+}

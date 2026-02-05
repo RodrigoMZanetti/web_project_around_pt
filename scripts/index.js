@@ -1,3 +1,5 @@
+/////INITIAL CARDS
+
 const initialCards = [
   {
     name: "Vale de Yosemite",
@@ -25,40 +27,77 @@ const initialCards = [
   },
 ];
 
-let formElement = document.querySelector("#edit-profile-form");
-formElement.addEventListener("submit", function (evt) {
-  handleProfileFormSubmit(evt);
+/////COLECTING ELEMENTS FROM HTML
+
+//POPUPs
+const popupNewCard = document.querySelector("#new-card-popup"); // OK
+const popupEditProfile = document.querySelector("#edit-popup"); //OK
+const popupImage = document.getElementById("image-popup"); // OK
+const imagePreview = popupImage.querySelector(".popup__image"); // OK
+const imageCaption = popupImage.querySelector(".popup__caption"); // OK
+
+//TEMPLATES
+const cardTemplate = document.getElementById("template_model").content; // OK
+const formNewCard = document.querySelector("#new-card-form"); // OK
+
+//FORMs
+const formEditProfile = document.querySelector("#edit-profile-form"); // OK
+
+//BUTTONS
+const btnEditOpen = document.querySelector(".profile__edit-button"); // OK
+const btnNewCardOpen = document.querySelector(".profile__add-button"); // OK
+const btnSubmitNewCard = formNewCard.querySelector(".popup__button"); // OK
+const btnSubmitEdit = formEditProfile.querySelector("#edit__button-submit"); // OK
+
+//INPUTS
+const inputCardTitle = formNewCard.querySelector(
+  ".popup__input_type_card-name",
+); // OK
+const inputCardLink = formNewCard.querySelector(".popup__input_type_url"); // OK
+const inputProfileName = formEditProfile.querySelector(
+  ".popup__input_type_name", // OK
+);
+const inputProfileAbout = formEditProfile.querySelector(
+  ".popup__input_type_description", // OK
+);
+
+/////INITIAL CARDS MODEL
+initialCards.forEach(function (item) {
+  let nameCardItem = item.name;
+  let nameCardImage = item.link;
+  let containerItem = document.querySelector(".cards__list");
+  renderCard(nameCardItem, nameCardImage, containerItem);
 });
 
-/////TASK 3 SPRINT 9 - FECHAR POPUP CLICANDO FORA
-function closePopUps(popUp) {
-  popUp.addEventListener("click", (event) => {
-    if (event.target === event.currentTarget) {
-      closeModal(popUp);
-    }
-  });
-  const closePopUpButton = popUp.querySelector(".popup__close");
-  closePopUpButton.addEventListener("click", () => {
-    closeModal(popUp);
-  });
-}
+/////OPENING POPUPs
 
-const modalGeral = document.querySelector("#edit-popup");
-closePopUps(modalGeral);
-let formNewCard = document.querySelector("#new-card-form");
-const buttonPopUpLocal = formNewCard.querySelector(".popup__button");
-
-const editButton = document.querySelector(".profile__edit-button");
-editButton.addEventListener("click", function () {
-  handleOpenEditModal(modalGeral);
-});
-
+//OPENING FUNCTION
 function handleOpenEditModal(modalGeral) {
   fillProfileForm(modalGeral);
   openModal(modalGeral);
-  resetForm(formElement, buttonSubmitForm);
+  resetForm(formEditProfile, btnSubmitEdit);
 }
 
+//OPENING NEW CARD BUTTON
+btnNewCardOpen.addEventListener("click", function () {
+  resetForm(formNewCard, btnSubmitNewCard);
+  openModal(popupNewCard);
+});
+
+//OPENING NEW PROFILE BUTTON
+btnEditOpen.addEventListener("click", function () {
+  handleOpenEditModal(popupEditProfile);
+});
+
+//OPENING MODAL FUNCTION
+function openModal(modal) {
+  modal.classList.add("popup_is-opened");
+  document.addEventListener("keydown", handleEscClose);
+}
+
+/////NEW INPUTS
+
+//NEW NAME AND EXPERIENCE INPUT
 function fillProfileForm(modalGeral) {
   const nameElement = document.querySelector(".profile__title");
   const nameElementInput = modalGeral.querySelector(".popup__input_type_name");
@@ -73,42 +112,30 @@ function fillProfileForm(modalGeral) {
   experienceInput.value = experienceText;
 }
 
-function openModal(modal) {
-  modal.classList.add("popup_is-opened");
-}
-
+//NEW NAME AND JOB INPUT
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  let nameInput = modalGeral.querySelector(".popup__input_type_name");
+  let nameInput = popupEditProfile.querySelector(".popup__input_type_name");
   const nameInputValue = nameInput.value;
   const nameElement = document.querySelector(".profile__title");
   nameElement.textContent = nameInputValue;
 
-  let jobInput = modalGeral.querySelector(".popup__input_type_description");
+  let jobInput = popupEditProfile.querySelector(
+    ".popup__input_type_description",
+  );
   const jobInputValue = jobInput.value;
   const experienceElement = document.querySelector(".profile__description");
   experienceElement.textContent = jobInputValue;
 
-  closeModal(modalGeral);
+  closeModal(popupEditProfile);
 }
 
-function closeModal(modal) {
-  modal.classList.remove("popup_is-opened");
-}
-
-const modelTemplate = document.getElementById("template_model").content;
-
-const modalImage = document.getElementById("image-popup");
-
-closePopUps(modalImage);
-const popupImage = modalImage.querySelector(".popup__image");
-const imageLegend = modalImage.querySelector(".popup__caption");
-
+//NEW NAME AND LOCAL INPUT
 function getCardElement(
   name = "Lugar sem nome",
   link = "./images/placeholder.jpg",
 ) {
-  const cardElement = modelTemplate.querySelector(".card").cloneNode(true);
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardName = cardElement.querySelector(".card__title");
   const cardImage = cardElement.querySelector(".card__image");
 
@@ -127,101 +154,130 @@ function getCardElement(
   });
 
   cardImage.addEventListener("click", function () {
-    openModal(modalImage);
-    popupImage.src = link;
-    popupImage.alt = name;
-    imageLegend.textContent = name;
+    openModal(popupImage);
+    imagePreview.src = link;
+    imagePreview.alt = name;
+    imageCaption.textContent = name;
   });
 
   return cardElement;
 }
 
+//CREATING NEW CARD FUNCTION
 function renderCard(name, link, container) {
   let newCard = getCardElement(name, link);
   return container.prepend(newCard);
 }
 
-initialCards.forEach(function (item) {
-  let nameCardItem = item.name;
-  let nameCardImage = item.link;
-  let containerItem = document.querySelector(".cards__list");
-  renderCard(nameCardItem, nameCardImage, containerItem);
+//SUBMITING NEW PROFILE
+formEditProfile.addEventListener("submit", function (evt) {
+  handleProfileFormSubmit(evt);
 });
 
-const modalNewCard = document.querySelector("#new-card-popup");
-closePopUps(modalNewCard);
-const buttonOpenNewCard = document.querySelector(".profile__add-button");
-
-buttonOpenNewCard.addEventListener("click", function () {
-  resetForm(formNewCard, buttonPopUpLocal);
-  openModal(modalNewCard);
-});
-
+//SUBMITING NEW CARD
 formNewCard.addEventListener("submit", function (evt) {
   handleCardFormSubmit(evt);
 });
 
+//NEW CARD FUNCTION
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
 
-  let nameInput = modalNewCard.querySelector(".popup__input_type_card-name");
+  let nameInput = popupNewCard.querySelector(".popup__input_type_card-name");
   const nameInputValue = nameInput.value;
 
-  let imageInput = modalNewCard.querySelector(".popup__input_type_url");
+  let imageInput = popupNewCard.querySelector(".popup__input_type_url");
   const imageInputValue = imageInput.value;
 
   const newCardComplete = document.querySelector(".cards__list");
 
   renderCard(nameInputValue, imageInputValue, newCardComplete);
 
-  closeModal(modalNewCard);
+  closeModal(popupNewCard);
 }
 
-///////////////////// sprint 9 TASK 1
+/////CLOSING POPUPs
 
-////// PEGANDO OS ELEMENTOS
-const idName = formElement.querySelector(".popup__input_type_name");
-const idDescription = formElement.querySelector(
-  ".popup__input_type_description",
-);
-const buttonSubmitForm = formElement.querySelector("#edit__button-submit");
+//CLOSING POPUP CLICKING OUTSIDE
+function closePopUps(popUp) {
+  const closePopUpButton = popUp.querySelector(".popup__close");
+  popUp.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) {
+      closeModal(popUp);
+    }
+  });
 
-////// SPAN PARA O NAME
+  //CLOSING BUTTON
+  closePopUpButton.addEventListener("click", () => {
+    closeModal(popUp);
+  });
+}
+
+//CLOSING MODAL FUNCTION
+function closeModal(modal) {
+  modal.classList.remove("popup_is-opened");
+  document.removeEventListener("keydown", handleEscClose);
+}
+
+//CLOSE USING ESCAPE KEY
+function handleEscClose(event) {
+  if (event.key === "Escape") {
+    const openedPopup = document.querySelector(".popup.popup_is-opened");
+    closeModal(openedPopup);
+  }
+}
+
+//RESET FUNCTION
+function resetForm(form, button) {
+  const allSpans = form.querySelectorAll("span");
+  allSpans.forEach((span) => {
+    span.textContent = "";
+  });
+  button.disabled = true;
+}
+
+//CALLING THE FUNCTIONs
+closePopUps(popupEditProfile);
+closePopUps(popupNewCard);
+closePopUps(popupImage);
+
+/////SPAN MESSAGES
+
+//NAME INPUT SPAN
 let newElementMessage = document.createElement("span");
-idName.after(newElementMessage);
+inputProfileName.after(newElementMessage);
 
-idName.addEventListener("input", () => {
-  const checkName = idName.checkValidity();
+inputProfileName.addEventListener("input", () => {
+  const checkName = inputProfileName.checkValidity();
 
   if (!checkName) {
-    newElementMessage.textContent = idName.validationMessage;
+    newElementMessage.textContent = inputProfileName.validationMessage;
     newElementMessage.classList.add("span-message");
   } else {
     newElementMessage.textContent = "";
     newElementMessage.classList.remove("span-message");
   }
-  validationButton(formElement, buttonSubmitForm);
+  validationButton(formEditProfile, btnSubmitEdit);
 });
 
-////// SPAN PARA O DESCRIPTION
+//DESCRIPTION INPUT SPAN
 let newDescriptionMessage = document.createElement("span");
-idDescription.after(newDescriptionMessage);
+inputProfileAbout.after(newDescriptionMessage);
 
-idDescription.addEventListener("input", () => {
-  const checkDescription = idDescription.checkValidity();
+inputProfileAbout.addEventListener("input", () => {
+  const checkDescription = inputProfileAbout.checkValidity();
 
   if (!checkDescription) {
-    newDescriptionMessage.textContent = idDescription.validationMessage;
+    newDescriptionMessage.textContent = inputProfileAbout.validationMessage;
     newDescriptionMessage.classList.add("span-message");
   } else {
     newDescriptionMessage.textContent = "";
     newDescriptionMessage.classList.remove("span-message");
   }
-  validationButton(formElement, buttonSubmitForm);
+  validationButton(formEditProfile, btnSubmitEdit);
 });
 
-////// VALIDAÇÃO DO BOTÃO
-
+//VALIDATION BUTTON
 function validationButton(form, button) {
   const verificationForm = form.checkValidity();
   if (verificationForm) {
@@ -231,59 +287,35 @@ function validationButton(form, button) {
   }
 }
 
-/////TASK 2 - SPRINT 9
+//NAME AND LOCAL VALIDATION
+let inputCardTitleMessage = document.createElement("span");
+inputCardTitle.after(inputCardTitleMessage);
 
-const newCardName = formNewCard.querySelector(".popup__input_type_card-name");
-const newLocalUrl = formNewCard.querySelector(".popup__input_type_url");
-
-/////VALIDAÇÃO DO NOME DO LOCAL
-let newCardNameMessage = document.createElement("span");
-newCardName.after(newCardNameMessage);
-
-newCardName.addEventListener("input", () => {
-  const cardNameValidation = newCardName.checkValidity();
+inputCardTitle.addEventListener("input", () => {
+  const cardNameValidation = inputCardTitle.checkValidity();
   if (!cardNameValidation) {
-    newCardNameMessage.textContent = newCardName.validationMessage;
-    newCardNameMessage.classList.add("span-message");
+    inputCardTitleMessage.textContent = inputCardTitle.validationMessage;
+    inputCardTitleMessage.classList.add("span-message");
   } else {
-    newCardNameMessage.textContent = "";
-    newCardNameMessage.classList.remove("span-message");
+    inputCardTitleMessage.textContent = "";
+    inputCardTitleMessage.classList.remove("span-message");
   }
-  validationButton(formNewCard, buttonPopUpLocal);
+  validationButton(formNewCard, btnSubmitNewCard);
 });
 
-/////VALIDAÇÃO DA NOVA URL DO LOCAL
-let newUrlMessage = document.createElement("span");
-newLocalUrl.after(newUrlMessage);
+//LINK VALIDATION
+let inputCardLinkMessage = document.createElement("span");
+inputCardLink.after(inputCardLinkMessage);
 
-newLocalUrl.addEventListener("input", () => {
-  const validationUrl = newLocalUrl.checkValidity();
+inputCardLink.addEventListener("input", () => {
+  const validationUrl = inputCardLink.checkValidity();
 
   if (!validationUrl) {
-    newUrlMessage.textContent = newLocalUrl.validationMessage;
-    newUrlMessage.classList.add("span-message");
+    inputCardLinkMessage.textContent = inputCardLink.validationMessage;
+    inputCardLinkMessage.classList.add("span-message");
   } else {
-    newUrlMessage.textContent = "";
-    newUrlMessage.classList.remove("span-message");
+    inputCardLinkMessage.textContent = "";
+    inputCardLinkMessage.classList.remove("span-message");
   }
-  validationButton(formNewCard, buttonPopUpLocal);
+  validationButton(formNewCard, btnSubmitNewCard);
 });
-
-/////TASK 4 SPRINT 9 - FECHAR POPUP CLICANDO ESC
-
-document.addEventListener("keydown", (event) => {
-  const modalAberto = document.querySelector(".popup.popup_is-opened");
-  if (event.key === "Escape" && modalAberto) {
-    closeModal(modalAberto);
-  }
-});
-
-/////TASK 5 SPRINT 9 - RESETANDO
-
-function resetForm(form, button) {
-  const allSpans = form.querySelectorAll("span");
-  allSpans.forEach((span) => {
-    span.textContent = "";
-  });
-  button.disabled = true;
-}
