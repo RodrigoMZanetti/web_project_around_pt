@@ -61,27 +61,28 @@ const inputProfileAbout = formEditProfile.querySelector(
   ".popup__input_type_description", // OK
 );
 
-/////INITIAL CARDS MODEL
+/////INITIAL CARDS MODEL // OK
+let containerItem = document.querySelector(".cards__list");
+
 initialCards.forEach(function (item) {
   let nameCardItem = item.name;
   let nameCardImage = item.link;
-  let containerItem = document.querySelector(".cards__list");
   renderCard(nameCardItem, nameCardImage, containerItem);
 });
 
-/////OPENING POPUPs
+/////OPENING POPUPs // OK
 
 //OPENING FUNCTION
-function handleOpenEditModal(modalGeral) {
-  fillProfileForm(modalGeral);
-  openModal(modalGeral);
+function handleOpenEditModal(popup) {
+  fillProfileForm(popup);
+  handleEditProfileOpen(popup);
   resetForm(formEditProfile, btnSubmitEdit);
 }
 
 //OPENING NEW CARD BUTTON
 btnNewCardOpen.addEventListener("click", function () {
   resetForm(formNewCard, btnSubmitNewCard);
-  openModal(popupNewCard);
+  handleEditProfileOpen(popupNewCard);
 });
 
 //OPENING NEW PROFILE BUTTON
@@ -90,8 +91,8 @@ btnEditOpen.addEventListener("click", function () {
 });
 
 //OPENING MODAL FUNCTION
-function openModal(modal) {
-  modal.classList.add("popup_is-opened");
+function handleEditProfileOpen(popup) {
+  popup.classList.add("popup_is-opened");
   document.addEventListener("keydown", handleEscClose);
 }
 
@@ -154,7 +155,7 @@ function getCardElement(
   });
 
   cardImage.addEventListener("click", function () {
-    openModal(popupImage);
+    handleEditProfileOpen(popupImage);
     imagePreview.src = link;
     imagePreview.alt = name;
     imageCaption.textContent = name;
@@ -319,3 +320,38 @@ inputCardLink.addEventListener("input", () => {
   }
   validationButton(formNewCard, btnSubmitNewCard);
 });
+
+//////////SPRINT 10
+/////ELABORAR A ESTRUTURA DA CLASSE CARD
+class Card {
+  constructor(data, elementSelector) {
+    this._text = data.name;
+    this._image = data.link;
+    this._elementSelector = elementSelector;
+  }
+
+  /////PEGA OS ELEMENTOS DO TEMPLATE
+  #getTemplate() {
+    //CLONA O TEMPLATE
+    const cardTemplate = document
+      .querySelector(this._elementSelector)
+      .content.querySelector(".card")
+      .cloneNode(true);
+    this._element = cardTemplate;
+
+    //PEGA O BOTÃO DE LIKE
+    const likeButton = this._element.querySelector(".card__like-button");
+    this._likeButton = likeButton;
+
+    return this._element;
+  }
+  /////CRIA MÉTODO DE ADICIONAR BOTÕES
+  #createListeners() {
+    this._likeButton.addEventListener("click", this._handleLikeClick);
+  }
+
+  /////CRIA CLASSE DE "LIKE"
+  #this._handleLikeClick() {
+    this._likeButton.classList.toggle("card__like-button_is-active");
+  }
+}
