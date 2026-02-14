@@ -414,3 +414,64 @@ initialCards.forEach((obj) => {
   const card = new Card(obj, "#template_model", handleImageClick).getView();
   container.prepend(card);
 });
+
+/////ELABORA A CLASS PARA VALIDAÇÃO DOS CAMPOS DO FORMULÁRIO
+
+class FormValidator {
+  constructor(config, formElement) {
+    this._config = config;
+    this._formElement = formElement;
+    this._inputList = Array.from(formElement.querySelectorAll(config.input));
+    this._buttonElement = formElement.querySelector(config.button);
+  }
+
+  /////verificar a validade do campo
+
+  #verification(element) {
+    const checkName = element.checkValidity();
+    const spanElement = element.nextElementSibling;
+
+    if (!checkName) {
+      spanElement.textContent = element.validationMessage;
+      spanElement.classList.add("span-message");
+    } else {
+      spanElement.textContent = "";
+      spanElement.classList.remove("span-message");
+    }
+  }
+
+  /////alterar o estado do botão Submit
+
+  #subButtonAlteration(input) {
+    const verificationInput = this._inputList.some(
+      (input) => input.checkValidity() === false,
+    );
+    if (verificationInput) {
+      this._buttonElement.disabled = true;
+    } else {
+      this._buttonElement.disabled = false;
+    }
+  }
+
+  /////adicionar todos os manipuladores necessários.
+
+  #addManipulators() {
+    this._inputList.forEach((input) => {
+      input.addEventListener("input", () => {
+        this.#verification(input);
+        this.#subButtonAlteration();
+      });
+    });
+  }
+
+  /////habilita a validação do formulário.
+
+  setEventListeners() {
+    this.#subButtonAlteration();
+    this.#addManipulators();
+  }
+}
+
+/////Crie uma instância da classe FormValidator para cada formulário que deve ser validado.
+
+initialCards.forEach((obj) => {});
