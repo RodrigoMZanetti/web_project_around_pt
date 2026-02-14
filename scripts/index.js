@@ -474,4 +474,19 @@ class FormValidator {
 
 /////Crie uma instância da classe FormValidator para cada formulário que deve ser validado.
 
-initialCards.forEach((obj) => {});
+const validationConfig = {
+  input: ".popup__input",
+  button: ".popup__button",
+};
+
+const firstPopupForm = document.querySelector(".popup__content");
+const secondPopupForm = document.querySelector(".popup__form");
+
+const firstPopupValidation = new FormValidator(
+  validationConfig,
+  firstPopupForm,
+);
+const secondPopupValidation = new FormValidator(
+  validationConfig,
+  secondPopupForm,
+);
