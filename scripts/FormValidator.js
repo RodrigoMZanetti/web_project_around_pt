@@ -53,7 +53,9 @@ class FormValidator {
   }
 }
 
-/////SPRINT 11 - CLASS SECTION CREATION
+/////SPRINT 11
+
+//CLASS SECTION CREATION
 
 class Section {
   constructor({ items, renderer }, selector) {
@@ -71,6 +73,53 @@ class Section {
   addItem(element) {
     const container = document.querySelector(this._selector);
     container.append(element);
+  }
+}
+
+//CLASS Popup CREATION
+
+class Popup {
+  constructor(popupSelector) {
+    this._popup = document.querySelector(popupSelector);
+    this._handleEscClose = this._handleEscClose.bind(this);
+  }
+
+  open() {
+    this._popup.classList.add("popup_is-opened");
+    document.addEventListener("keydown", this._handleEscClose);
+  }
+  close() {
+    this._popup.classList.remove("popup_is-opened");
+    document.removeEventListener("keydown", this._handleEscClose);
+  }
+  _handleEscClose(evt) {
+    if (evt.key === "Escape") {
+      this.close();
+    }
+  }
+  setEventListeners() {
+    const closeButtonPopup = this._popup.querySelector(".popup__close");
+    closeButtonPopup.addEventListener("click", () => this.close());
+    this._popup.addEventListener("mousedown", (evt) => {
+      if (evt.target === evt.currentTarget) this.close();
+    });
+  }
+}
+
+//CLASS PopupWithImage CREATION
+
+class PopupWithImage extends Popup {
+  constructor(popup) {
+    super(popup);
+    this._image = this._popup.querySelector("img");
+    this._imageText = this._popup.querySelector(".popup__caption");
+  }
+
+  open({ link, name }) {
+    this._image.src = link;
+    this._image.alt = name;
+    this._imageText.textContent = name;
+    super.open();
   }
 }
 
