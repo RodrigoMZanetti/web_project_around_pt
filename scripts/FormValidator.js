@@ -123,4 +123,46 @@ class PopupWithImage extends Popup {
   }
 }
 
+//Criação da classe PopupWithForm
+class PopupWithForm extends Popup {
+  constructor(popupSelector, handleFormSubmit) {
+    super(popupSelector);
+    this._handleFormSubmit = handleFormSubmit;
+    this._form = this._popup.querySelector("form");
+  }
+
+  _getInputValues() {
+    const allInputs = this._popup.querySelectorAll(".popup__input");
+    let inputArray = {};
+    allInputs.forEach((input) => {
+      inputArray[input.name] = input.value;
+    });
+    return inputArray;
+  }
+
+  setEventListeners() {
+    this._form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
+    });
+    super.setEventListeners();
+  }
+
+  close() {
+    super.close();
+    this._form.reset();
+  }
+}
+
+const popupImageClass = new PopupWithImage("#image-popup");
+const popupFormSubmitClass = new PopupWithForm(
+  "#edit-popup",
+  handleProfileFormSubmit,
+);
+const popImageClass = new PopupWithForm(
+  "#new-card-popup",
+  handleCardFormSubmit,
+);
+
+/////////////
 export default FormValidator;
