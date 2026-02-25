@@ -52,11 +52,13 @@ This project simulates a social network interface where users can create, edit, 
 
 ## Project Architecture
 
+```
 -blocks: modular CSS files organized using BEM methodology;
 -components: JavaScript modules responsible for UI logic and DOM behavior;
 -pages: entry files (index.css and index.js);
 -images: static assets used in the interface;
 -vendor: third-party styles such as normalize.css and fonts;
+```
 
 ## Project Structure 🗂️
 
@@ -95,8 +97,8 @@ This project simulates a social network interface where users can create, edit, 
 
 ## Author
 
-```
 Rodrigo M. Zanetti
+
 GitHub: [RodrigoMZanetti](https://github.com/RodrigoMZanetti)
+
 LinkedIn: [Rodrigo Zanetti](https://www.linkedin.com/in/rodrigomzanetti)
-```
