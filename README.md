@@ -33,18 +33,22 @@ This project simulates a social network interface where users can create, edit, 
 
 ## Technologies Used
 
+```
 -HTML5: structure and semantic elements;
 -CSS3: layout, styles, and responsive behavior;
 -JavaScript (Vanilla JS): interactivity, DOM manipulation, and dynamic behavior;
+```
 
 ## Skills Demonstrated
 
+```
 -Responsive web design using modern CSS techniques;
 -DOM manipulation and dynamic content rendering;
 -Event handling and interactive UI logic;
 -Modular project organization (BEM methodology);
 -Code structure focused on scalability and readability;
 -Version control with Git and GitHub Pages deployment
+```
 
 ## Project Architecture
 
@@ -91,6 +95,8 @@ This project simulates a social network interface where users can create, edit, 
 
 ## Author
 
-- Rodrigo M. Zanetti
-  GitHub: [RodrigoMZanetti](https://github.com/RodrigoMZanetti)
-  LinkedIn: [Rodrigo Zanetti](https://www.linkedin.com/in/rodrigomzanetti)
+```
+Rodrigo M. Zanetti
+GitHub: [RodrigoMZanetti](https://github.com/RodrigoMZanetti)
+LinkedIn: [Rodrigo Zanetti](https://www.linkedin.com/in/rodrigomzanetti)
+```
