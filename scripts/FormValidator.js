@@ -184,5 +184,6 @@ class UserInfo {
     this._inputJob.textContent = userInfo.job;
   }
 }
+
 /////////////
 export default FormValidator;
