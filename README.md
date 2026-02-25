@@ -6,24 +6,32 @@ The Around PT Web Project is a responsive front-end website built with HTML, CSS
 
 ## Live Demo
 
+Experience the project live here:
 🔗 https://rodrigomzanetti.github.io/web_project_around_pt/
+
+## Project Status
+
+-Completed as part of front-end development training
 
 ## Description
 
--The project was developed similar to a social network, where users can create new cards with new images and titles;
--The project serves as a platform for users to store their travel photos and memories online;
--The project exists to facilitate the organization of memories for users who enjoy traveling and taking photos to remember their experiences;
+-This project simulates a social network interface where users can create, edit, and manage image cards with titles.
+-It was designed as a travel memory platform, allowing users to organize and display their favorite experiences.
+-The focus is on responsive design, dynamic DOM manipulation, and clean component architecture.
 
 ## Features
 
--Clean and organized landing page
--Semantic HTML markup
--Responsive layout for various screen sizes
--Dynamic content manipulation using JavaScript
--DOM selection and element updates
--Interactive UI behaviors (via JavaScript)
--Consistent visual styling
--Easy to extend with new features and logic
+-Responsive and clean user interface  
+-Semantic HTML structure  
+-Dynamic card creation and DOM manipulation  
+-Interactive UI with event-driven behavior  
+-Scalable and modular code structure
+
+## Challenges and Solutions
+
+-One of the main challenges was managing dynamic DOM updates when creating new cards. To solve this, I structured reusable functions and separated logic into components, improving scalability and readability.
+
+-Another challenge was maintaining responsiveness across multiple breakpoints. This was addressed using modular CSS structure and consistent layout rules.
 
 ## Technologies Used
 
@@ -31,13 +39,22 @@ The Around PT Web Project is a responsive front-end website built with HTML, CSS
 -CSS3 — layout, styles, and responsive behavior
 -JavaScript (Vanilla JS) — interactivity, DOM manipulation, and dynamic behavior
 
+## Skills Demonstrated
+
+-Responsive web design using modern CSS techniques
+-DOM manipulation and dynamic content rendering
+-Event handling and interactive UI logic
+-Modular project organization (BEM methodology)
+-Code structure focused on scalability and readability
+-Version control with Git and GitHub Pages deployment
+
 ## Project Architecture
 
--blocks (css documents)
--components (JavaScript documents)
--images
--pages (index.css and index.js)
--vendor (fonts, fonts.css and normalize)
+-blocks — modular CSS files organized using BEM methodology  
+-components — JavaScript modules responsible for UI logic and DOM behavior  
+-pages — entry files (index.css and index.js)  
+-images — static assets used in the interface  
+-vendor — third-party styles such as normalize.css and fonts
 
 ## Project Structure 🗂️
 
@@ -45,16 +62,13 @@ The Around PT Web Project is a responsive front-end website built with HTML, CSS
 ├── 🗂️blocks
 ├── 🗂️components
 ├── 🗂️images
-├── 🗂️images/
 ├── 🗂️pages
 ├── 🗂️vendor
 ├── 🗂️fonts
 ├── index.html
 └── README.md
 
-/////parei aqui
-
-## How to Run the Project ▶️
+## How to Run the Project
 
 1. Clone this repository:
    bash
@@ -66,29 +80,15 @@ The Around PT Web Project is a responsive front-end website built with HTML, CSS
 3. Open the project in your browser:
    Simply open index.html, or use a local development server (optional)
 
-## Project Status 📌
+## Future Improvements
 
-✅ Complete — responsive front-end project with JavaScript functionality
-🔧 Can be enhanced with more advanced interactions, animations, and additional JS logic
+-Animation for the card opening popup;
+-Creation of a container for additional image information;
+-Development of a user area to follow friends and send messages to followers;
+-Improve accessibility (ARIA labels, keyboard navigation);
 
-## Problem-Solving Approach 🧠
-
-The development of this project focused on:
-
-- Structuring content with semantic HTML
-- Styling layouts using modern CSS techniques
-- Implementing responsiveness across different screen sizes
-- Using JavaScript to:
-- Select and manipulate DOM elements
-- Update content dynamically
-- Improve user interaction and behavior
-- Testing functionality and layout consistency
-- Keeping the code organized, readable, and scalable
-
-This approach strengthened practical understanding of how HTML, CSS, and JavaScript work together in real-world front-end development.
-
-Author 👤
+## Author
 
 - Rodrigo M. Zanetti
-  GitHub: https://github.com/RodrigoMZanetti
-  LinkedIn: https://www.linkedin.com/in/rodrigomzanetti
+  GitHub: [RodrigoMZanetti](https://github.com/RodrigoMZanetti)
+  LinkedIn: [Rodrigo Zanetti](https://www.linkedin.com/in/rodrigomzanetti)
