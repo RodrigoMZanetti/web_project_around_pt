@@ -65,9 +65,12 @@ function handleProfileFormSubmit({ name, description }) {
   });
 }
 
-function handleCardFormSubmit({ name, link }) {
+function handleCardFormSubmit(values) {
   const cardElement = new Card(
-    { name, link },
+    {
+      name: values["place-name"],
+      link: values.link,
+    },
     "#template_model",
     handleImageClick,
   ).getView();
@@ -103,6 +106,10 @@ initialCards.forEach((obj) => {
 });
 
 //Listeners
+
+popupImageClass.setEventListeners();
+popImageClass.setEventListeners();
+popupFormSubmitClass.setEventListeners();
 
 new FormValidator(validationConfig, formEditProfile).setEventListeners();
 new FormValidator(validationConfig, formNewCard).setEventListeners();
