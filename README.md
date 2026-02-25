@@ -1,41 +1,58 @@
-# Around PT Web Project
+# Around The U.S.
+
+The Around PT Web Project is a responsive front-end website built with HTML, CSS, and JavaScript.
 
 ![Project Screenshot](./images/Screenshot.png)
 
-## Project Overview 📊
+## Live Demo
 
-The Around PT Web Project is a responsive front-end website built with HTML, CSS, and JavaScript.
-The project presents content related to travel, places, or services within the “Around PT” concept and was developed to strengthen core front-end skills, including layout structure, responsive design, DOM manipulation, and basic interactivity using vanilla JavaScript, without relying on frameworks.
+🔗 https://rodrigomzanetti.github.io/web_project_around_pt/
 
-This project demonstrates the ability to combine structure, styling, and behavior in a clean and maintainable way.
+## Description
 
-## Features ✨
+-The project was developed similar to a social network, where users can create new cards with new images and titles;
+-The project serves as a platform for users to store their travel photos and memories online;
+-The project exists to facilitate the organization of memories for users who enjoy traveling and taking photos to remember their experiences;
 
-- Clean and organized landing page
-- Semantic HTML markup
-- Responsive layout for various screen sizes
-- Dynamic content manipulation using JavaScript
-- DOM selection and element updates
-- Interactive UI behaviors (via JavaScript)
-- Consistent visual styling
-- Easy to extend with new features and logic
+## Features
 
-## Technologies Used 🛠️
+-Clean and organized landing page
+-Semantic HTML markup
+-Responsive layout for various screen sizes
+-Dynamic content manipulation using JavaScript
+-DOM selection and element updates
+-Interactive UI behaviors (via JavaScript)
+-Consistent visual styling
+-Easy to extend with new features and logic
 
-- HTML5 — structure and semantic elements
-- CSS3 — layout, styles, and responsive behavior
-- JavaScript (Vanilla JS) — interactivity, DOM manipulation, and dynamic behavior
+## Technologies Used
+
+-HTML5 — structure and semantic elements
+-CSS3 — layout, styles, and responsive behavior
+-JavaScript (Vanilla JS) — interactivity, DOM manipulation, and dynamic behavior
+
+## Project Architecture
+
+-blocks (css documents)
+-components (JavaScript documents)
+-images
+-pages (index.css and index.js)
+-vendor (fonts, fonts.css and normalize)
 
 ## Project Structure 🗂️
 
-web_project_around_pt/
+🗂️web_project_around_pt/
+├── 🗂️blocks
+├── 🗂️components
+├── 🗂️images
+├── 🗂️images/
+├── 🗂️pages
+├── 🗂️vendor
+├── 🗂️fonts
 ├── index.html
-├── style.css
-├── script.js
-├── images/
-│ └── (images and visual assets)
-├── favicon.ico
 └── README.md
+
+/////parei aqui
 
 ## How to Run the Project ▶️
 
