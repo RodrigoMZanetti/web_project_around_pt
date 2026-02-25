@@ -11,25 +11,33 @@ Experience the project live here:
 
 ## Project Status
 
+```
 Completed as part of front-end development training
+```
 
 ## Description
 
+```
 This project simulates a social network interface where users can create, edit, and manage image cards with titles. It was designed as a travel memory platform, allowing users to organize and display their favorite experiences. The focus is on responsive design, dynamic DOM manipulation, and clean component architecture.
+```
 
 ## Features
 
--Responsive and clean user interface  
--Semantic HTML structure  
--Dynamic card creation and DOM manipulation  
--Interactive UI with event-driven behavior  
+```
+-Responsive and clean user interface
+-Semantic HTML structure
+-Dynamic card creation and DOM manipulation
+-Interactive UI with event-driven behavior
 -Scalable and modular code structure
+```
 
 ## Challenges and Solutions
 
+```
 -One of the main challenges was managing dynamic DOM updates when creating new cards. To solve this, I structured reusable functions and separated logic into components, improving scalability and readability.
 
 -Another challenge was maintaining responsiveness across multiple breakpoints. This was addressed using modular CSS structure and consistent layout rules.
+```
 
 ## Technologies Used
 
