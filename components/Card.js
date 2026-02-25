@@ -6,54 +6,54 @@ class Card {
     this._handleImageClick = handleImageClick;
   }
 
-  /////PEGA OS ELEMENTOS DO TEMPLATE
+  // Get elements from the template
   #getTemplate() {
-    //CLONA O TEMPLATE
+    //Clone the template
     const cardTemplate = document
       .querySelector(this._elementSelector)
       .content.querySelector(".card")
       .cloneNode(true);
-    //ARMAZENA EM UM ELEMENTO
+    // Store it in a variable
     this._element = cardTemplate;
 
-    //PEGA O BOTÃO DE LIKE
+    //Like button
     const likeButton = this._element.querySelector(".card__like-button");
     this._likeButton = likeButton;
 
-    //PEGA O BOTÃO DE DELETE
+    //Delete button
     const delButton = this._element.querySelector(".card__delete-button");
     this._delButton = delButton;
 
-    //PEGA IMAGE
+    //Image
     const imageTemplate = this._element.querySelector(".card__image");
     this._imageElement = imageTemplate;
 
-    //PEGA TITLE
+    //Title
     const titleTemplate = this._element.querySelector(".card__title");
     this._textElement = titleTemplate;
 
     return this._element;
   }
 
-  /////CRIA MÉTODO DE EVENTOS
-  //LIKE
+  //Event listeners
+  //Like
   #createListeners() {
     this._likeButton.addEventListener("click", () => {
       this.#handleLikeClick();
     });
 
-    //DELETE
+    //Delete
     this._delButton.addEventListener("click", () => {
       this.#handleDeleteClick();
     });
 
-    //ABRIR POPUP QUANDO CLICA NA IMAGE
+    //Open image popup on click
     this._imageElement.addEventListener("click", () => {
       this._handleImageClick(this._text, this._image);
     });
   }
 
-  /////CRIA MÉTODOS DE MUDANÇAS
+  //Handler methods
   #handleLikeClick() {
     this._likeButton.classList.toggle("card__like-button_is-active");
   }
@@ -62,7 +62,7 @@ class Card {
     this._element.remove();
   }
 
-  /////CRIANDO O TEMPLATE VISÍVEL
+  //Public method: returns the card element
   getView() {
     this.#getTemplate();
     this.#showTemplate();
@@ -70,7 +70,7 @@ class Card {
     return this._element;
   }
 
-  /////MOSTRAR O NOVO CARD
+  //Show new card
   #showTemplate() {
     this._textElement.textContent = this._text;
     this._imageElement.src = this._image;
