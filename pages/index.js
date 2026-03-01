@@ -63,6 +63,7 @@ function handleProfileFormSubmit({ name, description }) {
     name: name,
     job: description,
   });
+  popupFormSubmitClass.close();
 }
 
 function handleCardFormSubmit(values) {
@@ -76,6 +77,7 @@ function handleCardFormSubmit(values) {
   ).getView();
 
   containerItem.prepend(cardElement);
+  popImageClass.close();
 }
 
 //Instances
