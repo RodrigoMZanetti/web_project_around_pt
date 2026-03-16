@@ -1,112 +1,84 @@
 # Around The U.S.
 
-The Around PT Web Project is a responsive front-end website built with HTML, CSS, and JavaScript.
+## Live Demo
+
+https://rodrigomzanetti.github.io/web_project_around_pt/
+
+## Preview
 
 ![Project Screenshot](./images/Screenshot.png)
 
-## Live Demo
+## Overview
 
-Experience the project live here:
-🔗 https://rodrigomzanetti.github.io/web_project_around_pt/
+Around The U.S. is a responsive front-end web application that simulates a travel-based social platform. Users can create, edit, and manage image cards with titles, representing memorable places and experiences.
 
-## Project Status
-
-```
-Completed as part of front-end development training
-```
-
-## Description
-
-```
-This project simulates a social network interface where users can create, edit, and manage image cards with titles. It was designed as a travel memory platform, allowing users to organize and display their favorite experiences. The focus is on responsive design, dynamic DOM manipulation, and clean component architecture.
-```
+The project focuses on responsive design, component-based architecture, and dynamic DOM manipulation using vanilla JavaScript.
 
 ## Features
 
-```
--Responsive and clean user interface
--Semantic HTML structure
--Dynamic card creation and DOM manipulation
--Interactive UI with event-driven behavior
--Scalable and modular code structure
-```
-
-## Challenges and Solutions
-
-```
--One of the main challenges was managing dynamic DOM updates when creating new cards. To solve this, I structured reusable functions and separated logic into components, improving scalability and readability.
-
--Another challenge was maintaining responsiveness across multiple breakpoints. This was addressed using modular CSS structure and consistent layout rules.
-```
+- Responsive and clean user interface
+- Semantic HTML structure
+- Dynamic card creation and DOM manipulation
+- Interactive UI with event-driven behavior
+- Popup forms for editing profile and adding new cards
+- Modular and scalable code organization
 
 ## Technologies Used
 
-```
--HTML5: structure and semantic elements;
--CSS3: layout, styles, and responsive behavior;
--JavaScript (Vanilla JS): interactivity, DOM manipulation, and dynamic behavior;
-```
+- HTML5 – semantic structure and content organization
+- CSS3 – responsive layout and styling
+- JavaScript (Vanilla JS) – DOM manipulation and interactivity
+- BEM methodology – modular CSS architecture
 
-## Skills Demonstrated
+## Project Structure
 
-```
--Responsive web design using modern CSS techniques;
--DOM manipulation and dynamic content rendering;
--Event handling and interactive UI logic;
--Modular project organization (BEM methodology);
--Code structure focused on scalability and readability;
--Version control with Git and GitHub Pages deployment
-```
+web_project_around_pt/
 
-## Project Architecture
-
-```
--blocks: modular CSS files organized using BEM methodology;
--components: JavaScript modules responsible for UI logic and DOM behavior;
--pages: entry files (index.css and index.js);
--images: static assets used in the interface;
--vendor: third-party styles such as normalize.css and fonts;
-```
-
-## Project Structure 🗂️
-
-```
-🗂️web_project_around_pt/
-├── 🗂️blocks
-├── 🗂️components
-├── 🗂️images
-├── 🗂️pages
-├── 🗂️vendor
-├── 🗂️fonts
-├── index.html
-└── README.md
-```
+- blocks/ – modular CSS files organized using BEM methodology
+- components/ – JavaScript modules responsible for UI logic
+- pages/ – entry styles and scripts
+- images/ – image assets
+- vendor/ – external resources (normalize.css and fonts)
+- fonts/ – project font files
+- index.html – main application markup
 
 ## How to Run the Project
 
-1. Clone this repository:
-   bash
-   git clone https://github.com/RodrigoMZanetti/web_project_around_pt.git
+- Clone the repository
+  git clone https://github.com/RodrigoMZanetti/web_project_around_pt.git
 
-2. Navigate to the project folder:
-   cd web_project_around_pt
+- Navigate to the project folder
+  cd web_project_around_pt
 
-3. Open the project in your browser:
-   Simply open index.html, or use a local development server (optional)
+- Open the project
+  Open **index.html** in your browser or run a local server (recommended).
 
-## Future Improvements
+## Status
 
-```
--Animation for the card opening popup;
--Creation of a container for additional image information;
--Development of a user area to follow friends and send messages to followers;
--Improve accessibility (ARIA labels, keyboard navigation);
-```
+Completed as part of front-end development training.
+
+## Problem Solving
+
+One of the main challenges in this project was managing dynamic DOM updates when users create new cards. This was solved by organizing reusable JavaScript functions and separating responsibilities between UI components and DOM logic.
+
+Another challenge involved maintaining a consistent responsive layout across multiple screen sizes. This was addressed using modular CSS blocks and structured layout rules.
+
+## What I Learned
+
+During this project I practiced:
+
+- DOM manipulation and dynamic content rendering
+- Event handling and interactive UI logic
+- Responsive layout techniques using CSS
+- Component-based project organization
+- Using the BEM methodology for scalable CSS
+- Structuring front-end projects for maintainability
 
 ## Author
 
 Rodrigo M. Zanetti
 
-GitHub: [RodrigoMZanetti](https://github.com/RodrigoMZanetti)
+GitHub: https://github.com/RodrigoMZanetti
 
-LinkedIn: [Rodrigo Zanetti](https://www.linkedin.com/in/rodrigomzanetti)
+LinkedIn:  
+https://www.linkedin.com/in/rodrigomzanetti
