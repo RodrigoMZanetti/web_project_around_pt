@@ -30,13 +30,36 @@ function fillProfileForm(formElement) {
   formElement.querySelector(".popup__input_type_description").value =
     aboutElement.textContent;
 }
-
+/////////////////aq
 function handleProfileFormSubmit({ name, description }) {
-  userInfo.setUserInfo({
-    name: name,
-    job: description,
-  });
-  popupFormSubmitClass.close();
+  fetch("https://around-api.pt-br.tripleten-services.com/v1/users/me", {
+    method: "PATCH",
+    headers: {
+      authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      about: description,
+    }),
+  })
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(`Error: ${res.status}`);
+      } else {
+        return res.json();
+      }
+    })
+    .then((result) => {
+      userInfo.setUserInfo({
+        name: result.name,
+        job: result.about,
+      });
+      popupFormSubmitClass.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function handleCardFormSubmit(values) {
@@ -136,13 +159,7 @@ fetch("https://around-api.pt-br.tripleten-services.com/v1/cards/", {
       ).getView();
       containerItem.prepend(newCard);
     });
+  })
+  .catch((err) => {
+    console.log(err);
   });
-/*
-return {
-      isLiked: result.isLiked,
-      _id: result._id,
-      name: result.name,
-      link: result.link,
-      owner: result.owner,
-      createdAt: result.createdAt,
-    }; */
