@@ -4,33 +4,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 
-const initialCards = [
-  {
-    name: "Vale de Yosemite",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-  },
-  {
-    name: "Lago Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-  },
-  {
-    name: "Montanhas Carecas",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg",
-  },
-  {
-    name: "Parque Nacional Vanoise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
-  },
-];
-
 //DOM
 const btnEditOpen = document.querySelector(".profile__edit-button");
 const btnNewCardOpen = document.querySelector(".profile__add-button");
@@ -98,15 +71,6 @@ const popupFormSubmitClass = new PopupWithForm(
   handleProfileFormSubmit,
 );
 
-initialCards.forEach((obj) => {
-  const cardElement = new Card(
-    obj,
-    "#template_model",
-    handleImageClick,
-  ).getView();
-  containerItem.prepend(cardElement);
-});
-
 //Listeners
 
 popupImageClass.setEventListeners();
@@ -124,3 +88,61 @@ btnEditOpen.addEventListener("click", () => {
 btnNewCardOpen.addEventListener("click", () => {
   popImageClass.open();
 });
+
+//sprint 12
+
+fetch("https://around-api.pt-br.tripleten-services.com/v1/users/me", {
+  headers: {
+    authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
+  },
+})
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+  })
+  .then((result) => {
+    return {
+      name: result.name,
+      about: result.about,
+      avatar: result.avatar,
+      _id: result._id,
+    };
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+fetch("https://around-api.pt-br.tripleten-services.com/v1/cards/", {
+  headers: {
+    authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
+  },
+})
+  .then((res) => {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
+    } else {
+      return res.json();
+    }
+  })
+  .then((results) => {
+    results.forEach((result) => {
+      const newCard = new Card(
+        result,
+        "#template_model",
+        handleImageClick,
+      ).getView();
+      containerItem.prepend(newCard);
+    });
+  });
+/*
+return {
+      isLiked: result.isLiked,
+      _id: result._id,
+      name: result.name,
+      link: result.link,
+      owner: result.owner,
+      createdAt: result.createdAt,
+    }; */
