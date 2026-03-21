@@ -21,7 +21,14 @@
       <!--MAIN-->
       <main class="content">
         <section class="profile page__section">
-          <img class="profile__image" src="./images/avatar.jpg" alt="Avatar" />
+          <div class="profile__avatar-container">
+            <img
+              class="profile__image"
+              src="./images/avatar.jpg"
+              alt="Avatar"
+            />
+            <div class="profile__overlay"></div>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -166,6 +173,7 @@
         </button>
       </div>
     </div>
+
     <script type="module" src="./pages/index.js"></script>
   </body>
 </html>
