@@ -40,3 +40,5 @@ class PopupWithConfirmation extends Popup {
     });
   }
 }
+
+export default PopupWithConfirmation;

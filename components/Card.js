@@ -1,8 +1,14 @@
 class Card {
-  constructor(data, elementSelector, handleImageClick, userId) {
+  constructor(
+    data,
+    elementSelector,
+    handleImageClick,
+    userId,
+    handleDeleteClick,
+  ) {
     this._text = data.name;
     this._image = data.link;
-    this._likes = data.likes;
+    this._likes = data.likes || [];
     this._id = data._id;
 
     this._elementSelector = elementSelector;
@@ -12,6 +18,8 @@ class Card {
     this._isLiked = this._likes.some((like) => {
       return like._id === this._userId;
     });
+
+    this._handleDeleteClick = handleDeleteClick;
   }
 
   // Get elements from the template
@@ -50,12 +58,10 @@ class Card {
       this.#handleLikeClick();
     });
 
-    //Delete
     this._delButton.addEventListener("click", () => {
-      this.#handleDeleteClick();
+      this._handleDeleteClick(this._id, this._element);
     });
 
-    //Open image popup on click
     this._imageElement.addEventListener("click", () => {
       this._handleImageClick(this._text, this._image);
     });
@@ -112,11 +118,6 @@ class Card {
     }
   }
 
-  #handleDeleteClick() {
-    this._element.remove();
-  }
-
-  //Public method: returns the card element
   getView() {
     this.#getTemplate();
     this.#showTemplate();
@@ -124,7 +125,6 @@ class Card {
     return this._element;
   }
 
-  //Show new card
   #showTemplate() {
     this._textElement.textContent = this._text;
     this._imageElement.src = this._image;

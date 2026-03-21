@@ -78,19 +78,16 @@ function handleCardFormSubmit(values) {
     .then((res) => {
       if (!res.ok) {
         return Promise.reject(`Error: ${res.status}`);
-      } else {
-        return res.json();
       }
+      return res.json();
     })
-    .then((values) => {
+    .then((result) => {
       const cardElement = new Card(
-        {
-          name: values.name,
-          link: values.link,
-        },
+        result,
         "#template_model",
         handleImageClick,
         userId,
+        handleDeleteClick,
       ).getView();
       containerItem.prepend(cardElement);
       popImageClass.close();
@@ -171,6 +168,7 @@ fetch("https://around-api.pt-br.tripleten-services.com/v1/users/me", {
             "#template_model",
             handleImageClick,
             userId,
+            handleDeleteClick,
           ).getView();
           containerItem.prepend(newCard);
         });
@@ -185,3 +183,7 @@ const newPopupWithConfirmation = new PopupWithConfirmation(
   "#popup__delete-card",
 );
 newPopupWithConfirmation.setEventListeners();
+
+function handleDeleteClick(id, element) {
+  newPopupWithConfirmation.open(id, element);
+}
