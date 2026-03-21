@@ -1,9 +1,17 @@
 class Card {
-  constructor(data, elementSelector, handleImageClick) {
+  constructor(data, elementSelector, handleImageClick, userId) {
     this._text = data.name;
     this._image = data.link;
+    this._likes = data.likes;
+    this._id = data._id;
+
     this._elementSelector = elementSelector;
     this._handleImageClick = handleImageClick;
+    this._userId = userId;
+
+    this._isLiked = this._likes.some((like) => {
+      return like._id === this._userId;
+    });
   }
 
   // Get elements from the template
@@ -55,7 +63,53 @@ class Card {
 
   //Handler methods
   #handleLikeClick() {
-    this._likeButton.classList.toggle("card__like-button_is-active");
+    if (!this._isLiked) {
+      fetch(
+        `https://around-api.pt-br.tripleten-services.com/v1/cards/${this._id}/likes`,
+        {
+          method: "PUT",
+          headers: {
+            authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
+          },
+        },
+      )
+        .then((res) => {
+          if (!res.ok) {
+            return Promise.reject(`Error: ${res.status}`);
+          }
+          return res.json();
+        })
+        .then((result) => {
+          this._likes = result.likes;
+          this._isLiked = true;
+          this._likeButton.classList.add("card__like-button_is-active");
+        })
+        .catch((err) => console.log(err));
+    } else {
+      fetch(
+        `https://around-api.pt-br.tripleten-services.com/v1/cards/${this._id}/likes`,
+        {
+          method: "DELETE",
+          headers: {
+            authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
+          },
+        },
+      )
+        .then((res) => {
+          if (!res.ok) {
+            return Promise.reject(`Error: ${res.status}`);
+          }
+          return res.json();
+        })
+        .then((result) => {
+          this._likes = result.likes;
+          this._isLiked = false;
+          this._likeButton.classList.remove("card__like-button_is-active");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   #handleDeleteClick() {
