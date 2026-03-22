@@ -5,6 +5,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
+import API from "../components/API.js";
 
 //DOM
 const btnEditOpen = document.querySelector(".profile__edit-button");
@@ -174,48 +175,36 @@ popupAvatarImage.addEventListener("click", () => {
   popupWithAvatar.open();
 });
 
-//fetch para buscar e renderizar cards
-let userId = "";
+//APIs
 
-fetch("https://around-api.pt-br.tripleten-services.com/v1/users/me", {
+//Renderizando Cards
+let userId = "";
+const api = new API({
+  baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
   headers: {
     authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
+    "Content-Type": "application/json",
   },
-})
-  .then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Error: ${res.status}`);
-    }
-    return res.json();
+});
+
+api
+  .getUserInfo()
+  .then((user) => {
+    userId = user._id;
+    return api.getInitialCards();
   })
-  .then((result) => {
-    userId = result._id;
-    return fetch("https://around-api.pt-br.tripleten-services.com/v1/cards/", {
-      headers: {
-        authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          return Promise.reject(`Error: ${res.status}`);
-        } else {
-          return res.json();
-        }
-      })
-      .then((results) => {
-        console.log(results);
-        results.forEach((result) => {
-          const newCard = new Card(
-            result,
-            "#template_model",
-            handleOpenCardPopup,
-            userId,
-            handleDeleteClick,
-          ).getView();
-          cardsContainer.prepend(newCard);
-        });
-      });
+  .then((results) => {
+    results.forEach((result) => {
+      const newCard = new Card(
+        result,
+        "#template_model",
+        handleOpenCardPopup,
+        userId,
+        handleDeleteClick,
+      ).getView();
+      cardsContainer.prepend(newCard);
+    });
   })
-  .catch((error) => {
-    console.log(error);
+  .catch((err) => {
+    console.log(err);
   });
