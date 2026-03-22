@@ -15,6 +15,9 @@ class PopupWithConfirmation extends Popup {
   setEventListeners() {
     super.setEventListeners();
     this._deleteButton.addEventListener("click", () => {
+      const buttonSubmit = this._popup.querySelector(".popup__button");
+      const buttonMessage = buttonSubmit.textContent;
+      buttonSubmit.textContent = "Saving...";
       fetch(
         `https://around-api.pt-br.tripleten-services.com/v1/cards/${this._id}`,
         {
@@ -28,7 +31,6 @@ class PopupWithConfirmation extends Popup {
           if (!res.ok) {
             return Promise.reject(`ERROR: ${res.status}`);
           }
-          return res.json();
         })
         .then((result) => {
           super.close();
@@ -36,6 +38,9 @@ class PopupWithConfirmation extends Popup {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          buttonSubmit.textContent = buttonMessage;
         });
     });
   }

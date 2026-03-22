@@ -1,3 +1,4 @@
+//Importações
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -10,15 +11,15 @@ const btnEditOpen = document.querySelector(".profile__edit-button");
 const btnNewCardOpen = document.querySelector(".profile__add-button");
 const formNewCard = document.querySelector("#new-card-form");
 const formEditProfile = document.querySelector("#edit-profile-form");
-const containerItem = document.querySelector(".cards__list");
+const cardsContainer = document.querySelector(".cards__list");
 const validationConfig = {
   input: ".popup__input",
   button: ".popup__button",
 };
 
-//Functions
-function handleImageClick(text, image) {
-  popupImageClass.open({ link: image, name: text });
+//Funções
+function handleOpenCardPopup(text, image) {
+  popupWithImage.open({ link: image, name: text });
 }
 
 function fillProfileForm(formElement) {
@@ -32,7 +33,12 @@ function fillProfileForm(formElement) {
     aboutElement.textContent;
 }
 
+/*Função de submiter o novo perfil, será enviada para a classe*/
+
 function handleProfileFormSubmit({ name, description }) {
+  const buttonSubmit = this._popup.querySelector(".popup__button");
+  const buttonMessage = buttonSubmit.textContent;
+  buttonSubmit.textContent = "Saving...";
   fetch("https://around-api.pt-br.tripleten-services.com/v1/users/me", {
     method: "PATCH",
     headers: {
@@ -56,14 +62,23 @@ function handleProfileFormSubmit({ name, description }) {
         name: result.name,
         job: result.about,
       });
-      popupFormSubmitClass.close();
+      popupEditProfileForm.close();
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      buttonSubmit.textContent = buttonMessage;
     });
 }
 
+/*Função de submiter o novo card, será enviada para a classe*/
+
 function handleCardFormSubmit(values) {
+  const buttonSubmit = popupAddCard._popup.querySelector(".popup__button");
+  const buttonMessage = buttonSubmit.textContent;
+  buttonSubmit.textContent = "Saving...";
+
   fetch("https://around-api.pt-br.tripleten-services.com/v1/cards/", {
     method: "POST",
     headers: {
@@ -85,55 +100,81 @@ function handleCardFormSubmit(values) {
       const cardElement = new Card(
         result,
         "#template_model",
-        handleImageClick,
+        handleOpenCardPopup,
         userId,
         handleDeleteClick,
       ).getView();
-      containerItem.prepend(cardElement);
-      popImageClass.close();
+      cardsContainer.prepend(cardElement);
+      popupAddCard.close();
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      buttonSubmit.textContent = buttonMessage;
     });
 }
 
-//Instances
+//Instâncias
 
+//PopupWithImage.js
+const popupWithImage = new PopupWithImage("#image-popup");
+popupWithImage.setEventListeners();
+btnNewCardOpen.addEventListener("click", () => {
+  popupAddCard.open();
+});
+
+//PopupWithForm.js
+const popupAddCard = new PopupWithForm("#new-card-popup", handleCardFormSubmit);
+popupAddCard.setEventListeners();
+
+//PopupWithForm.js
+const popupEditProfileForm = new PopupWithForm(
+  "#edit-popup",
+  handleProfileFormSubmit,
+);
+popupEditProfileForm.setEventListeners();
+btnEditOpen.addEventListener("click", () => {
+  fillProfileForm(formEditProfile);
+  popupEditProfileForm.open();
+});
+
+//FormValidator.js
+new FormValidator(validationConfig, formEditProfile).setEventListeners();
+new FormValidator(validationConfig, formNewCard).setEventListeners();
+
+//UserInfo.js
 const userInfo = new UserInfo({
   inputNameSelector: ".profile__title",
   inputJobSelector: ".profile__description",
 });
 
-const popupImageClass = new PopupWithImage("#image-popup");
-const popImageClass = new PopupWithForm(
-  "#new-card-popup",
-  handleCardFormSubmit,
+//PoupWithConfirmation.js
+const newPopupWithConfirmation = new PopupWithConfirmation(
+  "#popup__delete-card",
 );
+newPopupWithConfirmation.setEventListeners();
 
-const popupFormSubmitClass = new PopupWithForm(
-  "#edit-popup",
-  handleProfileFormSubmit,
+function handleDeleteClick(id, element) {
+  newPopupWithConfirmation.open(id, element);
+}
+
+//PopupWithAvatar.js
+import PopupWithAvatar from "../components/PopupWithAvatar.js";
+const imageAvatarElement = document.querySelector(".profile__image");
+const popupWithAvatar = new PopupWithAvatar(
+  "#popup__avatar",
+  imageAvatarElement,
 );
+popupWithAvatar.setEventListeners();
 
-//Listeners
+const popupAvatarImage = document.querySelector(".profile__avatar-container");
 
-popupImageClass.setEventListeners();
-popImageClass.setEventListeners();
-popupFormSubmitClass.setEventListeners();
-
-new FormValidator(validationConfig, formEditProfile).setEventListeners();
-new FormValidator(validationConfig, formNewCard).setEventListeners();
-
-btnEditOpen.addEventListener("click", () => {
-  fillProfileForm(formEditProfile);
-  popupFormSubmitClass.open();
+popupAvatarImage.addEventListener("click", () => {
+  popupWithAvatar.open();
 });
 
-btnNewCardOpen.addEventListener("click", () => {
-  popImageClass.open();
-});
-
-//sprint 12
+//fetch para buscar e renderizar cards
 let userId = "";
 
 fetch("https://around-api.pt-br.tripleten-services.com/v1/users/me", {
@@ -162,43 +203,19 @@ fetch("https://around-api.pt-br.tripleten-services.com/v1/users/me", {
         }
       })
       .then((results) => {
+        console.log(results);
         results.forEach((result) => {
           const newCard = new Card(
             result,
             "#template_model",
-            handleImageClick,
+            handleOpenCardPopup,
             userId,
             handleDeleteClick,
           ).getView();
-          containerItem.prepend(newCard);
+          cardsContainer.prepend(newCard);
         });
       });
   })
   .catch((error) => {
     console.log(error);
   });
-
-//delete card
-const newPopupWithConfirmation = new PopupWithConfirmation(
-  "#popup__delete-card",
-);
-newPopupWithConfirmation.setEventListeners();
-
-function handleDeleteClick(id, element) {
-  newPopupWithConfirmation.open(id, element);
-}
-
-//9. Atualização de foto do perfil
-import PopupWithAvatar from "../components/PopupWithAvatar.js";
-const imageAvatarElement = document.querySelector(".profile__image");
-const popupWithAvatar = new PopupWithAvatar(
-  "#popup__avatar",
-  imageAvatarElement,
-);
-popupWithAvatar.setEventListeners();
-
-const popupAvatarImage = document.querySelector(".profile__avatar-container");
-
-popupAvatarImage.addEventListener("click", () => {
-  popupWithAvatar.open();
-});

@@ -21,6 +21,10 @@ class PopupWithAvatar extends Popup {
   submitNewAvatar() {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
+      const buttonSubmit = this._popup.querySelector(".popup__button");
+      const buttonMessage = buttonSubmit.textContent;
+      buttonSubmit.textContent = "Saving...";
+
       fetch(
         `https://around-api.pt-br.tripleten-services.com/v1/users/me/avatar`,
         {
@@ -42,10 +46,15 @@ class PopupWithAvatar extends Popup {
         })
         .then((data) => {
           this._profileAvatar.src = data.avatar;
+
           super.close();
+          this._form.reset();
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          buttonSubmit.textContent = buttonMessage;
         });
     });
   }
