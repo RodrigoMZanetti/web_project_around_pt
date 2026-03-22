@@ -1,13 +1,13 @@
 import Popup from "./Popup.js";
 
 class PopupWithAvatar extends Popup {
-  constructor(popupSelector, newImage) {
+  constructor(popupSelector) {
     super(popupSelector);
-    this._newImage = newImage;
+    this._form = this._popup.querySelector("form");
   }
 
-  submitNewAvatar(imageSelector) {
-    return fetch(
+  submitNewAvatar() {
+    fetch(
       `https://around-api.pt-br.tripleten-services.com/v1/users/me/avatar`,
       {
         method: "PATCH",
