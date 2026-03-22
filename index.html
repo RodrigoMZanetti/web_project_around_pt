@@ -21,7 +21,7 @@
       <!--MAIN-->
       <main class="content">
         <section class="profile page__section">
-          <div class="profile__avatar-container">
+          <div class="profile__avatar-container" id="profile__avatar-container">
             <img
               class="profile__image"
               src="./images/avatar.jpg"
@@ -171,6 +171,33 @@
         >
           <p class="button__delete-text">SIM</p>
         </button>
+      </div>
+    </div>
+
+    <!--Popup para mudança do avatar-->
+    <div class="popup" id="popup__avatar">
+      <div class="popup__container">
+        <button
+          aria-label="Fechar pop-up"
+          class="popup__close"
+          type="button"
+        ></button>
+        <form
+          action=""
+          class="popup__avatar-form"
+          name="popup__avatar-form"
+          id="popup__avatar-form"
+        >
+          <label for="popup__avatar-image">Alterar a foto de perfil</label>
+          <input
+            type="url"
+            class="popup__avatar-image"
+            name="popup__avatar-image"
+            placeholder="cole um link url válido"
+            required
+          />
+          <button class="popup__avatar-button" type="submit">Salvar</button>
+        </form>
       </div>
     </div>
 
