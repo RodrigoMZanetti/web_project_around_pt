@@ -178,7 +178,7 @@
 
     <!--Popup para mudança do avatar-->
     <div class="popup" id="popup__avatar">
-      <div class="popup__container">
+      <div class="popup__content">
         <button
           aria-label="Fechar pop-up"
           class="popup__close"
@@ -190,18 +190,24 @@
           name="popup__avatar-form"
           id="popup__avatar-form"
         >
-          <label for="popup__avatar-image">Alterar a foto de perfil</label>
+          <label for="popup__avatar-image" class="popup__avatar-label"
+            >Alterar a foto de perfil</label
+          >
           <input
             type="url"
-            class="popup__avatar-image"
+            class="popup__avatar-image popup__input"
             name="popup__avatar-image"
             placeholder="cole um link url válido"
+            id="popup__avatar-image"
             required
           />
-          <button class="popup__avatar-submit" type="submit">Salvar</button>
+          <button class="popup__avatar-submit popup__button" type="submit">
+            Salvar
+          </button>
         </form>
       </div>
     </div>
+    <!--Fim Popup para mudança do avatar-->
 
     <script type="module" src="./pages/index.js"></script>
   </body>

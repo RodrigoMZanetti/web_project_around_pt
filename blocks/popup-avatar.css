@@ -1,8 +1,9 @@
+/*Overlay da imagem*/
+
 .profile__avatar-container {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  object-fit: cover;
   background-position: center;
   margin-right: 29px;
 
@@ -20,7 +21,7 @@
   background-color: rgba(0, 0, 0, 0.332);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
 
   top: 0;
   left: 0;
@@ -29,4 +30,34 @@
   height: 100%;
 
   position: absolute;
+}
+
+/*Popup da mudança de imagem do avatar*/
+
+/*form*/
+.popup__avatar-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 50px;
+}
+
+/*label*/
+.popup__avatar-label {
+  font-family: "Inter";
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 100%;
+  color: black;
+  text-align: left;
+}
+/*botão (sobrescrevi a margim-top do botão do popup pai*/
+.popup__avatar-submit {
+  margin-top: 0;
+}
+
+/*input (sobrescrevi a margim e o padding do input do popup pai*/
+.popup__avatar-image {
+  margin-bottom: 0px;
+  padding: 0px;
 }

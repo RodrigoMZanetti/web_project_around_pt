@@ -190,7 +190,11 @@ function handleDeleteClick(id, element) {
 
 //9. Atualização de foto do perfil
 import PopupWithAvatar from "../components/PopupWithAvatar.js";
-const popupWithAvatar = new PopupWithAvatar("#popup__avatar");
+const imageAvatarElement = document.querySelector(".profile__image");
+const popupWithAvatar = new PopupWithAvatar(
+  "#popup__avatar",
+  imageAvatarElement,
+);
 popupWithAvatar.setEventListeners();
 
 const popupAvatarImage = document.querySelector(".profile__avatar-container");
