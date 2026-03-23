@@ -34,88 +34,6 @@ function fillProfileForm(formElement) {
     aboutElement.textContent;
 }
 
-/*Função de submiter o novo perfil, será enviada para a classe*/
-
-function handleProfileFormSubmit({ name, description }) {
-  const buttonSubmit = this._popup.querySelector(".popup__button");
-  const buttonMessage = buttonSubmit.textContent;
-  buttonSubmit.textContent = "Saving...";
-  fetch("https://around-api.pt-br.tripleten-services.com/v1/users/me", {
-    method: "PATCH",
-    headers: {
-      authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: name,
-      about: description,
-    }),
-  })
-    .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Error: ${res.status}`);
-      } else {
-        return res.json();
-      }
-    })
-    .then((result) => {
-      userInfo.setUserInfo({
-        name: result.name,
-        job: result.about,
-      });
-      popupEditProfileForm.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      buttonSubmit.textContent = buttonMessage;
-    });
-}
-
-/*Função de submiter o novo card, será enviada para a classe*/
-
-function handleCardFormSubmit(values) {
-  const buttonSubmit = popupAddCard._popup.querySelector(".popup__button");
-  const buttonMessage = buttonSubmit.textContent;
-  buttonSubmit.textContent = "Saving...";
-
-  fetch("https://around-api.pt-br.tripleten-services.com/v1/cards/", {
-    method: "POST",
-    headers: {
-      authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: values["place-name"],
-      link: values.link,
-    }),
-  })
-    .then((res) => {
-      if (!res.ok) {
-        return Promise.reject(`Error: ${res.status}`);
-      }
-      return res.json();
-    })
-    .then((result) => {
-      const cardElement = new Card(
-        result,
-        "#template_model",
-        handleOpenCardPopup,
-        userId,
-        handleDeleteClick,
-      ).getView();
-      cardsContainer.prepend(cardElement);
-      popupAddCard.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      buttonSubmit.textContent = buttonMessage;
-    });
-}
-
 //Instâncias
 
 //PopupWithImage.js
@@ -156,7 +74,7 @@ const newPopupWithConfirmation = new PopupWithConfirmation(
 );
 newPopupWithConfirmation.setEventListeners();
 
-function handleDeleteClick(id, element) {
+function handleDeleteButton(id, element) {
   newPopupWithConfirmation.open(id, element);
 }
 
@@ -177,7 +95,7 @@ popupAvatarImage.addEventListener("click", () => {
 
 //APIs
 
-//Renderizando Cards
+//Api Renderizando Cards
 let userId = "";
 const api = new API({
   baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
@@ -200,7 +118,8 @@ api
         "#template_model",
         handleOpenCardPopup,
         userId,
-        handleDeleteClick,
+        handleLikeButton,
+        handleDeleteButton,
       ).getView();
       cardsContainer.prepend(newCard);
     });
@@ -208,3 +127,105 @@ api
   .catch((err) => {
     console.log(err);
   });
+
+//Api like e remover o like
+function handleLikeButton(card) {
+  if (card._isLiked) {
+    api
+      .deleteLike(card._id)
+      .then((result) => {
+        console.log(result);
+        card.updateLikes(result.likes);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    api
+      .addLike(card._id)
+      .then((result) => card.updateLikes(result.likes))
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+}
+
+/*Api submiter o novo perfil*/
+
+const buttonSubmit =
+  popupEditProfileForm._popup.querySelector(".popup__button");
+const buttonMessage = buttonSubmit.textContent;
+buttonSubmit.textContent = "Saving...";
+api
+  .updateUserInfo(name, description)
+  .then((result) => {
+    userInfo.setUserInfo({
+      name: result.name,
+      job: result.about,
+    });
+    popupEditProfileForm.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+    buttonSubmit.textContent = buttonMessage;
+  });
+
+/*API de submiter o novo card*/
+function handleAddCardSubmit(data) {
+  buttonSubmit.textContent = "Saving...";
+  api
+    .cardFormSubmit(data)
+    .then((result) => {
+      const cardElement = new Card(
+        result,
+        "#template_model",
+        handleOpenCardPopup,
+        userId,
+        handleLikeButton,
+        handleDeleteButton,
+      ).getView();
+      cardsContainer.prepend(cardElement);
+      popupAddCard.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      buttonSubmit.textContent = buttonMessage;
+    });
+}
+
+//API PopupWithAvatar
+
+function handleNewAvatar(data) {
+  buttonSubmit.textContent = "Saving...";
+  api
+    .submitNewAvatar(data)
+    .then((result) => {
+      profileAvatar.src = result.avatar;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      buttonSubmit.textContent = buttonMessage;
+    });
+}
+
+//API PopupWithConfirmation
+function handleConfirmation(cardId, card) {
+  buttonSubmit.textContent = "Saving...";
+  api
+    .submitNewConfirmation(cardId)
+    .then(() => {
+      return card.remove();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      buttonSubmit.textContent = buttonMessage;
+    });
+}

@@ -1,9 +1,10 @@
 import Popup from "./Popup.js";
 
 class PopupWithConfirmation extends Popup {
-  constructor(popupSelector) {
+  constructor(popupSelector, handleConfirmation) {
     super(popupSelector);
     this._deleteButton = this._popup.querySelector(".button__delete-card");
+    this._handleConfirmation = handleConfirmation;
   }
 
   open(id, card) {
@@ -12,37 +13,15 @@ class PopupWithConfirmation extends Popup {
     super.open();
   }
 
+  submitNewConfirmation() {
+    this._deleteButton.addEventListener("click", () => {
+      this._handleConfirmation(this._id, this._card);
+    });
+  }
+
   setEventListeners() {
     super.setEventListeners();
-    this._deleteButton.addEventListener("click", () => {
-      const buttonSubmit = this._popup.querySelector(".popup__button");
-      const buttonMessage = buttonSubmit.textContent;
-      buttonSubmit.textContent = "Saving...";
-      fetch(
-        `https://around-api.pt-br.tripleten-services.com/v1/cards/${this._id}`,
-        {
-          method: "DELETE",
-          headers: {
-            authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
-          },
-        },
-      )
-        .then((res) => {
-          if (!res.ok) {
-            return Promise.reject(`ERROR: ${res.status}`);
-          }
-        })
-        .then((result) => {
-          super.close();
-          return this._card.remove();
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          buttonSubmit.textContent = buttonMessage;
-        });
-    });
+    this.submitNewConfirmation();
   }
 }
 

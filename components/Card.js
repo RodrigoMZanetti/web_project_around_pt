@@ -4,7 +4,8 @@ class Card {
     elementSelector,
     handleImageClick,
     userId,
-    handleDeleteClick,
+    handleLikeButton,
+    handleDeleteButton,
   ) {
     this._text = data.name;
     this._image = data.link;
@@ -15,11 +16,12 @@ class Card {
     this._handleImageClick = handleImageClick;
     this._userId = userId;
 
+    this._handleDeleteButton = handleDeleteButton;
+    this._handleLikeButton = handleLikeButton;
+
     this._isLiked = this._likes.some((like) => {
       return like._id === this._userId;
     });
-
-    this._handleDeleteClick = handleDeleteClick;
   }
 
   // Get elements from the template
@@ -55,11 +57,11 @@ class Card {
   //Like
   #createListeners() {
     this._likeButton.addEventListener("click", () => {
-      this.#handleLikeClick();
+      this.#handleLikeButton();
     });
 
     this._delButton.addEventListener("click", () => {
-      this._handleDeleteClick(this._id, this._element);
+      this._handleDeleteButton(this._id, this._element);
     });
 
     this._imageElement.addEventListener("click", () => {
@@ -68,53 +70,21 @@ class Card {
   }
 
   //Handler methods
-  #handleLikeClick() {
-    if (!this._isLiked) {
-      fetch(
-        `https://around-api.pt-br.tripleten-services.com/v1/cards/${this._id}/likes`,
-        {
-          method: "PUT",
-          headers: {
-            authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
-          },
-        },
-      )
-        .then((res) => {
-          if (!res.ok) {
-            return Promise.reject(`Error: ${res.status}`);
-          }
-          return res.json();
-        })
-        .then((result) => {
-          this._likes = result.likes;
-          this._isLiked = true;
-          this._likeButton.classList.add("card__like-button_is-active");
-        })
-        .catch((err) => console.log(err));
+  #handleLikeButton() {
+    this._handleLikeButton(this);
+  }
+
+  //like e remover likes
+  updateLikes(likes) {
+    console.log(`Recebido ${likes}`);
+    this._likes = likes;
+    this._isLiked = this._likes.some((item) => {
+      return item._id === this._userId;
+    });
+    if (this._isLiked) {
+      this._likeButton.classList.add("card__like-button_is-active");
     } else {
-      fetch(
-        `https://around-api.pt-br.tripleten-services.com/v1/cards/${this._id}/likes`,
-        {
-          method: "DELETE",
-          headers: {
-            authorization: "1ea7b6ca-ac6f-43e4-9d93-04922f8ad215",
-          },
-        },
-      )
-        .then((res) => {
-          if (!res.ok) {
-            return Promise.reject(`Error: ${res.status}`);
-          }
-          return res.json();
-        })
-        .then((result) => {
-          this._likes = result.likes;
-          this._isLiked = false;
-          this._likeButton.classList.remove("card__like-button_is-active");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this._likeButton.classList.remove("card__like-button_is-active");
     }
   }
 
@@ -122,6 +92,7 @@ class Card {
     this.#getTemplate();
     this.#showTemplate();
     this.#createListeners();
+    this.updateLikes(this._likes);
     return this._element;
   }
 
