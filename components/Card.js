@@ -9,7 +9,6 @@ class Card {
   ) {
     this._text = data.name;
     this._image = data.link;
-    this._likes = data.likes || [];
     this._id = data._id;
 
     this._elementSelector = elementSelector;
@@ -19,9 +18,7 @@ class Card {
     this._handleDeleteButton = handleDeleteButton;
     this._handleLikeButton = handleLikeButton;
 
-    this._isLiked = this._likes.some((like) => {
-      return like._id === this._userId;
-    });
+    this._isLiked = data.isLiked;
   }
 
   // Get elements from the template
@@ -76,13 +73,9 @@ class Card {
 
   //like e remover likes
 
-  updateLikes(likes) {
-    console.log("likes:", likes);
-    console.log("isArray:", Array.isArray(likes));
-    this._likes = likes;
-    this._isLiked = this._likes.some((item) => {
-      return item._id === this._userId;
-    });
+  updateLikes(isLiked) {
+    this._isLiked = isLiked;
+
     if (this._isLiked) {
       this._likeButton.classList.add("card__like-button_is-active");
     } else {
@@ -94,7 +87,7 @@ class Card {
     this.#getTemplate();
     this.#showTemplate();
     this.#createListeners();
-    this.updateLikes(this._likes);
+    this.updateLikes(this._isLiked);
     return this._element;
   }
 

@@ -132,23 +132,24 @@ api
 
 //Api like e remover o like
 function handleLikeButton(card) {
+  console.log("CARD RECEBIDO:", card);
+  console.log("card._id:", card._id);
+  console.log("card._isLiked:", card._isLiked);
+
   if (card._isLiked) {
     api
       .deleteLike(card._id)
       .then((result) => {
-        console.log(result);
-        card.updateLikes(result.likes);
+        card.updateLikes(result.isLiked);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   } else {
     api
       .addLike(card._id)
-      .then((result) => card.updateLikes(result.likes))
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((result) => {
+        card.updateLikes(result.isLiked);
+      })
+      .catch((err) => console.log(err));
   }
 }
 
