@@ -75,8 +75,10 @@ class Card {
   }
 
   //like e remover likes
+
   updateLikes(likes) {
-    console.log(`Recebido ${likes}`);
+    console.log("likes:", likes);
+    console.log("isArray:", Array.isArray(likes));
     this._likes = likes;
     this._isLiked = this._likes.some((item) => {
       return item._id === this._userId;

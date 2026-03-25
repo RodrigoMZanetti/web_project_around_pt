@@ -3,6 +3,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithAvatar from "../components/PopupWithAvatar.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import API from "../components/API.js";
@@ -36,16 +37,17 @@ function fillProfileForm(formElement) {
 
 //Instâncias
 
-//PopupWithImage.js
-const popupWithImage = new PopupWithImage("#image-popup");
-popupWithImage.setEventListeners();
+//PopupWithForm.js
+const popupAddCard = new PopupWithForm("#new-card-popup", handleAddCardSubmit);
+popupAddCard.setEventListeners();
+
 btnNewCardOpen.addEventListener("click", () => {
   popupAddCard.open();
 });
 
-//PopupWithForm.js
-const popupAddCard = new PopupWithForm("#new-card-popup", handleCardFormSubmit);
-popupAddCard.setEventListeners();
+//PopupWithImage.js
+const popupWithImage = new PopupWithImage("#image-popup");
+popupWithImage.setEventListeners();
 
 //PopupWithForm.js
 const popupEditProfileForm = new PopupWithForm(
@@ -59,8 +61,11 @@ btnEditOpen.addEventListener("click", () => {
 });
 
 //FormValidator.js
-new FormValidator(validationConfig, formEditProfile).setEventListeners();
-new FormValidator(validationConfig, formNewCard).setEventListeners();
+const editFormValidator = new FormValidator(validationConfig, formEditProfile);
+editFormValidator.setEventListeners();
+
+const addFormValidator = new FormValidator(validationConfig, formNewCard);
+addFormValidator.setEventListeners();
 
 //UserInfo.js
 const userInfo = new UserInfo({
@@ -70,7 +75,8 @@ const userInfo = new UserInfo({
 
 //PoupWithConfirmation.js
 const newPopupWithConfirmation = new PopupWithConfirmation(
-  "#popup__delete-card",
+  "#popup-delete-card",
+  handleConfirmation,
 );
 newPopupWithConfirmation.setEventListeners();
 
@@ -79,12 +85,8 @@ function handleDeleteButton(id, element) {
 }
 
 //PopupWithAvatar.js
-import PopupWithAvatar from "../components/PopupWithAvatar.js";
 const imageAvatarElement = document.querySelector(".profile__image");
-const popupWithAvatar = new PopupWithAvatar(
-  "#popup__avatar",
-  imageAvatarElement,
-);
+const popupWithAvatar = new PopupWithAvatar("#popup-avatar", handleNewAvatar);
 popupWithAvatar.setEventListeners();
 
 const popupAvatarImage = document.querySelector(".profile__avatar-container");
@@ -115,13 +117,13 @@ api
     results.forEach((result) => {
       const newCard = new Card(
         result,
-        "#template_model",
+        "#template-model",
         handleOpenCardPopup,
         userId,
         handleLikeButton,
         handleDeleteButton,
       ).getView();
-      cardsContainer.prepend(newCard);
+      cardsContainer.append(newCard);
     });
   })
   .catch((err) => {
@@ -151,36 +153,39 @@ function handleLikeButton(card) {
 }
 
 /*Api submiter o novo perfil*/
-
-const buttonSubmit =
-  popupEditProfileForm._popup.querySelector(".popup__button");
-const buttonMessage = buttonSubmit.textContent;
-buttonSubmit.textContent = "Saving...";
-api
-  .updateUserInfo(name, description)
-  .then((result) => {
-    userInfo.setUserInfo({
-      name: result.name,
-      job: result.about,
+function handleProfileFormSubmit({ name, description }) {
+  const buttonSubmit =
+    popupEditProfileForm._popup.querySelector(".popup__button");
+  const buttonMessage = buttonSubmit.textContent;
+  buttonSubmit.textContent = "Saving...";
+  api
+    .updateUserInfo({ name, description })
+    .then((result) => {
+      userInfo.setUserInfo({
+        name: result.name,
+        job: result.about,
+      });
+      popupEditProfileForm.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      buttonSubmit.textContent = buttonMessage;
     });
-    popupEditProfileForm.close();
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-  .finally(() => {
-    buttonSubmit.textContent = buttonMessage;
-  });
+}
 
 /*API de submiter o novo card*/
 function handleAddCardSubmit(data) {
+  const buttonSubmit = popupAddCard._popup.querySelector(".popup__button");
+  const buttonMessage = buttonSubmit.textContent;
   buttonSubmit.textContent = "Saving...";
   api
     .cardFormSubmit(data)
     .then((result) => {
       const cardElement = new Card(
         result,
-        "#template_model",
+        "#template-model",
         handleOpenCardPopup,
         userId,
         handleLikeButton,
@@ -200,11 +205,14 @@ function handleAddCardSubmit(data) {
 //API PopupWithAvatar
 
 function handleNewAvatar(data) {
+  const buttonSubmit = popupWithAvatar._popup.querySelector(".popup__button");
+  const buttonMessage = buttonSubmit.textContent;
   buttonSubmit.textContent = "Saving...";
   api
     .submitNewAvatar(data)
     .then((result) => {
-      profileAvatar.src = result.avatar;
+      imageAvatarElement.src = result.avatar;
+      popupWithAvatar.close();
     })
     .catch((err) => {
       console.log(err);
@@ -216,11 +224,17 @@ function handleNewAvatar(data) {
 
 //API PopupWithConfirmation
 function handleConfirmation(cardId, card) {
+  const buttonSubmit = newPopupWithConfirmation._popup.querySelector(
+    ".popup__delete-button",
+  );
+  const buttonMessage = buttonSubmit.textContent;
+
   buttonSubmit.textContent = "Saving...";
   api
     .submitNewConfirmation(cardId)
     .then(() => {
-      return card.remove();
+      card.remove();
+      newPopupWithConfirmation.close();
     })
     .catch((err) => {
       console.log(err);

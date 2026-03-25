@@ -23,7 +23,7 @@
       <main class="main">
         <section class="profile page__section">
           <!--Imagem do avatar-->
-          <div class="profile__avatar-container" id="profile__avatar-container">
+          <div class="profile__avatar-container" id="profile-avatar-container">
             <img
               class="profile__image"
               src="./images/avatar.jpg"
@@ -48,7 +48,7 @@
         </section>
         <section class="cards page__section">
           <ul class="cards__list"></ul>
-          <template id="template_model">
+          <template id="template-model">
             <li class="card">
               <img class="card__image" src="" alt="" />
               <button
@@ -101,13 +101,7 @@
               required
             />
             <span class="popup__input-error description-input-error"></span>
-            <button
-              class="button popup__button"
-              type="submit"
-              id="edit__button-submit"
-            >
-              Salvar
-            </button>
+            <button class="button popup__button" type="submit">Salvar</button>
           </form>
         </div>
       </div>
@@ -123,7 +117,7 @@
           <form class="popup__form" id="new-card-form">
             <input
               class="popup__input popup__input_type_card-name"
-              name="place-name"
+              name="placeName"
               placeholder="Título"
               minlength="2"
               maxlength="30"
@@ -158,7 +152,7 @@
         </div>
       </div>
     </div>
-    <div class="popup" id="popup__delete-card">
+    <div class="popup" id="popup-delete-card">
       <div class="popup__content">
         <button
           aria-label="Fechar pop-up"
@@ -168,16 +162,16 @@
         <p class="popup__delete-text">Tem certeza?</p>
         <button
           aria-label="popup__delete-card"
-          class="button__delete-card"
+          class="popup__delete-button"
           type="button"
         >
-          <p class="button__delete-text">SIM</p>
+          SIM
         </button>
       </div>
     </div>
 
     <!--Popup para mudança do avatar-->
-    <div class="popup" id="popup__avatar">
+    <div class="popup" id="popup-avatar">
       <div class="popup__content">
         <button
           aria-label="Fechar pop-up"
@@ -188,17 +182,17 @@
           action=""
           class="popup__avatar-form"
           name="popup__avatar-form"
-          id="popup__avatar-form"
+          id="popup-avatar-form"
         >
-          <label for="popup__avatar-image" class="popup__avatar-label"
+          <label for="popup-avatar-image" class="popup__avatar-label"
             >Alterar a foto de perfil</label
           >
           <input
             type="url"
             class="popup__avatar-image popup__input"
-            name="popup__avatar-image"
+            name="avatarImage"
             placeholder="cole um link url válido"
-            id="popup__avatar-image"
+            id="popup-avatar-image"
             required
           />
           <button class="popup__avatar-submit popup__button" type="submit">

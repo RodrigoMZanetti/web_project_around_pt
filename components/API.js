@@ -73,7 +73,7 @@ class API {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: data["place-name"],
+        name: data.placeName,
         link: data.link,
       }),
     }).then((res) => {
