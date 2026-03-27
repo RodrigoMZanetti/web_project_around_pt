@@ -8,11 +8,11 @@ https://rodrigomzanetti.github.io/web_project_around_pt/
 
 <div align="center">
   <h3>Change avatar</h3>
-    <img src="./src/images/Change-avatar-image.gif" width="300" height="250">
-    <img src="./src/images/Change-avatar-description.gif" width="300" height="250">
+    <img src="./src/images/Change-avatar-image.gif" width="300" height="200">
+    <img src="./src/images/Change-avatar-description.gif" width="300" height="200">
   <h3>Cards interactions</h3>
-    <img src="./src/images/Add-new-card.gif" width="300" height="250">
-    <img src="./src/images/Like-and-delete-card.gif" width="300 height="250">
+    <img src="./src/images/Add-new-card.gif" width="300" height="200">
+    <img src="./src/images/Like-and-delete-card.gif" width="300" height="200">
 </div>
 
 ## Overview
