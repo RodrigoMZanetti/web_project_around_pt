@@ -6,14 +6,14 @@ https://rodrigomzanetti.github.io/web_project_around_pt/
 
 ## Preview
 
-<h3>Change avatar image</h3>
-  <img src="./src/images/Change-avatar-image.gif" width="300">
-<h3>Change avatar description</h3>
-  <img src="./src/images/Change-avatar-description.gif" width="300">
-<h3>Add new Card</h3>
-  <img src="./src/images/Add-new-card.gif" width="300">
-<h3>Like and delete Card</h3>
-  <img src="./src/images/Like-and-delete-card.gif" width="300">
+<div align="center">
+  <h3>Change avatar</h3>
+    <img src="./src/images/Change-avatar-image.gif" width="300">
+    <img src="./src/images/Change-avatar-description.gif" width="300">
+  <h3>Cards interactions</h3>
+    <img src="./src/images/Add-new-card.gif" width="300">
+    <img src="./src/images/Like-and-delete-card.gif" width="300">
+</div>
 
 ## Overview
 
