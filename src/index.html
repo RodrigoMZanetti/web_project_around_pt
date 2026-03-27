@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="ie=edge" http-equiv="X-UA-Compatible" />
+    <title>Around The U.S.</title>
+    <link href="./src/pages/index.css" rel="stylesheet" />
+  </head>
+  <!--BODY-->
+  <body class="page">
+    <div class="page__content">
+      <!--HEADER-->
+
+      <header class="header page__section">
+        <img
+          alt="Logotipo Around The U.S."
+          class="logo header__logo"
+          src="./src/images/logo.svg"
+        />
+      </header>
+      <!--MAIN-->
+      <main class="main">
+        <section class="profile page__section">
+          <!--Imagem do avatar-->
+          <div class="profile__avatar-container" id="profile-avatar-container">
+            <img
+              class="profile__image"
+              src="./src/images/avatar.jpg"
+              alt="Avatar"
+            />
+            <div class="profile__overlay"></div>
+          </div>
+          <div class="profile__info">
+            <h1 class="profile__title">Jacques Cousteau</h1>
+            <button
+              aria-label="Editar perfil"
+              class="profile__edit-button"
+              type="button"
+            ></button>
+            <p class="profile__description">Explorador</p>
+          </div>
+          <button
+            aria-label="Adicionar cartão"
+            class="profile__add-button"
+            type="button"
+          ></button>
+        </section>
+        <section class="cards page__section">
+          <ul class="cards__list"></ul>
+          <template id="template-model">
+            <li class="card">
+              <img class="card__image" src="" alt="" />
+              <button
+                aria-label="Excluir cartão"
+                class="card__delete-button"
+                type="button"
+              ></button>
+              <div class="card__description">
+                <h2 class="card__title"></h2>
+                <button
+                  aria-label="Botão de curtir"
+                  class="card__like-button"
+                  type="button"
+                ></button>
+              </div>
+            </li>
+          </template>
+        </section>
+      </main>
+      <footer class="footer page__section">
+        <p class="footer__copyright">&copy; 2025 Around The U.S.</p>
+      </footer>
+      <!--TEMPLATES-->
+      <div class="popup" id="edit-popup">
+        <div class="popup__content">
+          <button
+            aria-label="Fechar pop-up"
+            class="popup__close"
+            type="button"
+          ></button>
+          <h3 class="popup__title">Editar perfil</h3>
+          <form class="popup__form" id="edit-profile-form">
+            <input
+              class="popup__input popup__input_type_name"
+              name="name"
+              placeholder="Nome"
+              type="text"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span class="popup__input-error name-input-error"></span>
+            <input
+              class="popup__input popup__input_type_description"
+              name="description"
+              placeholder="Sobre mim"
+              type="text"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span class="popup__input-error description-input-error"></span>
+            <button class="button popup__button" type="submit">Salvar</button>
+          </form>
+        </div>
+      </div>
+      <!--TEMPLATE NOVO LOCAL-->
+      <div class="popup" id="new-card-popup">
+        <div class="popup__content">
+          <button
+            aria-label="Fechar pop-up"
+            class="popup__close"
+            type="button"
+          ></button>
+          <h3 class="popup__title">Novo local</h3>
+          <form class="popup__form" id="new-card-form">
+            <input
+              class="popup__input popup__input_type_card-name"
+              name="placeName"
+              placeholder="Título"
+              minlength="2"
+              maxlength="30"
+              type="text"
+              required
+            />
+            <span class="popup__input-error card-name-input-error"></span>
+            <input
+              class="popup__input popup__input_type_url"
+              name="link"
+              placeholder="Link de Imagem"
+              type="url"
+              required
+            />
+            <span class="popup__input-error url-input-error"></span>
+            <button class="button popup__button" type="submit" disabled>
+              Criar
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="popup" id="image-popup">
+        <div class="popup__content popup__content_content-image">
+          <button
+            aria-label="Fechar pop-up"
+            class="popup__close"
+            type="button"
+          ></button>
+          <img alt="" class="popup__image" src="#" />
+          <p class="popup__caption"></p>
+        </div>
+      </div>
+    </div>
+    <div class="popup" id="popup-delete-card">
+      <div class="popup__content">
+        <button
+          aria-label="Fechar pop-up"
+          class="popup__close"
+          type="button"
+        ></button>
+        <p class="popup__delete-text">Tem certeza?</p>
+        <button
+          aria-label="popup__delete-card"
+          class="popup__delete-button popup__button"
+          type="button"
+        >
+          SIM
+        </button>
+      </div>
+    </div>
+
+    <!--Popup para mudança do avatar-->
+    <div class="popup" id="popup-avatar">
+      <div class="popup__content">
+        <button
+          aria-label="Fechar pop-up"
+          class="popup__close"
+          type="button"
+        ></button>
+        <form
+          action=""
+          class="popup__avatar-form"
+          name="popup__avatar-form"
+          id="popup-avatar-form"
+        >
+          <label for="popup-avatar-image" class="popup__avatar-label"
+            >Alterar a foto de perfil</label
+          >
+          <input
+            type="url"
+            class="popup__avatar-image popup__input"
+            name="avatarImage"
+            placeholder="cole um link url válido"
+            id="popup-avatar-image"
+            required
+          />
+          <button class="popup__avatar-submit popup__button" type="submit">
+            Salvar
+          </button>
+        </form>
+      </div>
+    </div>
+    <!--Fim Popup para mudança do avatar-->
+
+    <script type="module" src="./src/pages/index.js"></script>
+  </body>
+</html>
