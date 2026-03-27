@@ -6,7 +6,10 @@ https://rodrigomzanetti.github.io/web_project_around_pt/
 
 ## Preview
 
-![Project Screenshot](./images/Screenshot.png)
+![Change avatar image](./src/images/Change-avatar-image.gif)
+![Change avatar image](./src/images/Change-avatar-description.gif)
+![Change avatar image](./src/images/Add-new-card.gif)
+![Change avatar image](./src/images/Like-and-delete-card.gif)
 
 ## Overview
 
