@@ -5,6 +5,7 @@ class PopupWithConfirmation extends Popup {
     super(popupSelector);
     this._deleteButton = this._popup.querySelector(".popup__delete-button");
     this._handleConfirmation = handleConfirmation;
+    this._handleDeleteClick = this._handleDeleteClick.bind(this);
   }
 
   open(id, card) {
@@ -13,15 +14,13 @@ class PopupWithConfirmation extends Popup {
     super.open();
   }
 
-  submitNewConfirmation() {
-    this._deleteButton.addEventListener("click", () => {
-      this._handleConfirmation(this._id, this._card);
-    });
+  _handleDeleteClick() {
+    this._handleConfirmation(this._id, this._card);
   }
 
   setEventListeners() {
+    this._deleteButton.addEventListener("click", this._handleDeleteClick);
     super.setEventListeners();
-    this.submitNewConfirmation();
   }
 }
 

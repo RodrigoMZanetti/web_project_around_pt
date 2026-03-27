@@ -92,7 +92,6 @@
 
 .popup_is-opened {
   display: flex;
-  cursor: pointer;
 }
 
 .popup__content_content-image {

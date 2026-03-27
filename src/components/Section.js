@@ -3,6 +3,7 @@ class Section {
     this._items = items;
     this._renderer = renderer;
     this._selector = selector;
+    this._container = document.querySelector(this._selector);
   }
 
   render() {
@@ -12,8 +13,7 @@ class Section {
   }
 
   addItem(element) {
-    const container = document.querySelector(this._selector);
-    container.append(element);
+    this._container.append(element);
   }
 }
 

@@ -68,13 +68,13 @@ class API {
     });
   }
 
-  cardFormSubmit(data) {
+  createCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: data.placeName,
-        link: data.link,
+        name,
+        link,
       }),
     }).then((res) => {
       if (!res.ok) {
@@ -85,7 +85,7 @@ class API {
     });
   }
 
-  submitNewAvatar(data) {
+  createNewAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
@@ -100,7 +100,7 @@ class API {
     });
   }
 
-  submitNewConfirmation(cardId) {
+  createNewConfirmation(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,

@@ -132,10 +132,6 @@ api
 
 //Api like e remover o like
 function handleLikeButton(card) {
-  console.log("CARD RECEBIDO:", card);
-  console.log("card._id:", card._id);
-  console.log("card._isLiked:", card._isLiked);
-
   if (card._isLiked) {
     api
       .deleteLike(card._id)
@@ -182,7 +178,10 @@ function handleAddCardSubmit(data) {
   const buttonMessage = buttonSubmit.textContent;
   buttonSubmit.textContent = "Saving...";
   api
-    .cardFormSubmit(data)
+    .createCard({
+      name: data.placeName,
+      link: data.link,
+    })
     .then((result) => {
       const cardElement = new Card(
         result,
@@ -210,7 +209,7 @@ function handleNewAvatar(data) {
   const buttonMessage = buttonSubmit.textContent;
   buttonSubmit.textContent = "Saving...";
   api
-    .submitNewAvatar(data)
+    .createNewAvatar(data)
     .then((result) => {
       imageAvatarElement.src = result.avatar;
       popupWithAvatar.close();
@@ -232,7 +231,7 @@ function handleConfirmation(cardId, card) {
 
   buttonSubmit.textContent = "Saving...";
   api
-    .submitNewConfirmation(cardId)
+    .createNewConfirmation(cardId)
     .then(() => {
       card.remove();
       newPopupWithConfirmation.close();
